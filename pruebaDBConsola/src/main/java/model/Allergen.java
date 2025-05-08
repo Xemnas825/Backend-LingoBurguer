@@ -12,24 +12,24 @@ public class Allergen implements iModel {
         return m_iId;
     }
 
-    public void setId(int m_iId) {
-        this.m_iId = m_iId;
+    public void setId(int _iId) {
+        m_iId = _iId;
     }
 
     public String getName() {
         return m_strName;
     }
 
-    public void setName(String m_strName) {
-        this.m_strName = m_strName;
+    public void setName(String _strName) {
+        m_strName = _strName;
     }
 
     public String getDescription() {
         return m_strDescription;
     }
 
-    public void setDescription(String m_strDescription) {
-        this.m_strDescription = m_strDescription;
+    public void setDescription(String _strDescription) {
+        m_strDescription = _strDescription;
     }
 
     public Allergen(int p_iId, String p_strName) {

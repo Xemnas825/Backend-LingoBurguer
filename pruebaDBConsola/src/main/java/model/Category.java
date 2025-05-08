@@ -6,6 +6,10 @@ public class Category implements iModel{
     private int m_iId;
     private String m_strName;
 
+    public void setId(int _iId){
+        m_iId = _iId;
+    }
+
     public int getId() {
         return m_iId;
     }
@@ -18,9 +22,9 @@ public class Category implements iModel{
         m_strName = _strName;
     }
 
-    public Category(int _iId, String _strName) {
-        m_iId = _iId;
-        m_strName = _strName;
+    public Category(int p_iId, String p_strName) {
+        setId(p_iId);
+        setName(p_strName);
     }
 
     @Override

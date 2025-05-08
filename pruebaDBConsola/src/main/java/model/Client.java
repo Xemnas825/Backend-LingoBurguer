@@ -12,6 +12,11 @@ public class Client implements iModel {
     private String m_strPhoneAdress;
     private String m_strPasswordHash;
 
+
+    public void setId(int _iId) {
+        m_iId = _iId;
+    }
+
     public int getId() {
         return m_iId;
     }
@@ -64,14 +69,13 @@ public class Client implements iModel {
         m_strPasswordHash = _strPasswordHash;
     }
 
-
-    //todo variable de "created at"
+    //todo variable de "created at" de formato DATE
 
     //Preguntar si en el constructor deberiamos declarar un ID siendo que en la base de datos se autoincrementa
-    public Client(int _iId, String _strFirstName, String _strLastName) {
-        m_iId = _iId;
-        m_strFirstName = _strFirstName;
-        m_strLastName = _strLastName;
+    public Client(int p_iId, String p_strFirstName, String p_strLastName) {
+        setId(p_iId);
+        setFirstName(p_strFirstName);
+        setLastName(p_strLastName);
     }
 
     @Override

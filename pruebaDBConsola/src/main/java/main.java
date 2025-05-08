@@ -10,6 +10,7 @@ public class main {
         /////////////////TODO DUDAS///////////////////////
         // Como se hacen las tablas intermedias
         // Como
+        // ¿Esta bien hacer un setId cuando en la BD tiene cada ID para que se autoincremente?
 
        /*  AllergenDao aler = new AllergenDao();
         ArrayList<Allergen> allergens = new ArrayList<>();
@@ -17,7 +18,6 @@ public class main {
         System.out.println(allergens.toString());
         allergens = aler.findAll(new Allergen(1,"")); //busca el alergeno where ID=1
         allergens.toString(); */
-
 
         //Hecho solo con 3 datos de esta tabla todos (expandir)
         /*ProductsDao pro = new ProductsDao();
@@ -27,7 +27,6 @@ public class main {
         products = pro.findAll(new Product(1,"","")); //busca el alergeno where ID=1
         products.toString();*/
 
-
         /* CategoryDao cat = new CategoryDao();
         ArrayList<Category> categories = new ArrayList<>();
         categories = cat.findAll(null); //busca todos los elementos
@@ -35,14 +34,12 @@ public class main {
         categories = cat.findAll(new Category(1,"")); //busca el alergeno where ID=1
         categories.toString();   */
 
-
         /* ClientDao cat = new ClientDao();
         ArrayList<Client> clients = new ArrayList<>();
         clients = cat.findAll(null); //busca todos los elementos
         System.out.println(clients.toString());
         clients = cat.findAll(new Client(1,"","")); //busca el alergeno where ID=1
         clients.toString(); */
-
 
         //Ya funca todos revisar
         /* EstablishmentsDao est = new EstablishmentsDao();

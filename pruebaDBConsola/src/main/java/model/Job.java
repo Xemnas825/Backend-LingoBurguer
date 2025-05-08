@@ -57,10 +57,10 @@ public class Job implements iModel{
     @Override
     public String toString() {
         return "Job{" +
-                "m_iId=" + m_iId +
-                ", m_strTitle='" + m_strTitle + '\'' +
-                ", m_dblMinSalary=" + m_dblMinSalary +
-                ", m_dblMaxSalary=" + m_dblMaxSalary +
+                "m_iId=" + getId() +
+                ", m_strTitle='" + getTitle() + '\'' +
+                ", m_dblMinSalary=" + getMinSalary() +
+                ", m_dblMaxSalary=" + getMaxSalary() +
                 '}';
     }
 

@@ -11,16 +11,16 @@ public class PaymentMethod implements iModel {
         return m_iId;
     }
 
-    public void setId(int m_iId) {
-        this.m_iId = m_iId;
+    public void setId(int _iId) {
+        m_iId = _iId;
     }
 
     public String getName() {
         return m_strName;
     }
 
-    public void setName(String m_strName) {
-        this.m_strName = m_strName;
+    public void setName(String _strName) {
+        m_strName = _strName;
     }
 
 

@@ -10,6 +10,10 @@ public class Establishment implements iModel{
     private String m_strTelephone;
     private String m_strOpeningHours;
 
+    public void setId(int _iId) {
+        m_iId = _iId;
+    }
+
     public int getId() {
         return m_iId;
     }
@@ -46,11 +50,13 @@ public class Establishment implements iModel{
         m_strOpeningHours = _strOpeningHours;
     }
 
-    public Establishment(int _iId, String _strName, String _strAddress) {
-        this.m_iId = _iId;
-        this.m_strName = _strName;
-        this.m_strAddress = _strAddress;
+    public Establishment(int p_iId, String p_strName, String p_strAddress) {
+        setId(p_iId);
+        setName(p_strName);
+        setAddress(p_strAddress);
     }
+
+
 
     @Override
     public String toString() {

@@ -16,6 +16,10 @@ public class Product implements iModel {
     //TODO Añadir categoryID como foreingKey
 
 
+    public void setId(int _iId) {
+        m_iId = _iId;
+    }
+
     public int getId() {
         return m_iId;
     }
@@ -60,21 +64,21 @@ public class Product implements iModel {
         m_strImageURL = _strImageURL;
     }
 
-    public Product(int _iProductId, String _strName, String _strDescription) {
-        m_iId = _iProductId;
-        m_strName = _strName;
-        m_strDescription = _strDescription;
+    public Product(int p_iProductId, String p_strName, String p_strDescription) {
+        setId(p_iProductId);
+        setName(p_strName);
+        setDescription(p_strDescription);
     }
 
-    public Product(int _iProductId, String _strName, String _strDescription,
-                   double _dblPrice, boolean _bAvailable, String _strImageURL)
+    public Product(int p_iProductId, String p_strName, String p_strDescription,
+                   double p_dblPrice, boolean p_bAvailable, String p_strImageURL)
     {
-        m_iId = _iProductId;
-        m_strName = _strName;
-        m_strDescription = _strDescription;
-        m_dblPrice = _dblPrice;
-        m_bAvailable = _bAvailable;
-        m_strImageURL = _strImageURL;
+        setId(p_iProductId);
+        setName(p_strName);
+        setDescription(p_strDescription);
+        setPrice(p_dblPrice);
+        setAvailable(p_bAvailable);
+        setImageURL(p_strImageURL);
     }
 
     @Override

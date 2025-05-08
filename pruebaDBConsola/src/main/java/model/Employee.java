@@ -9,7 +9,7 @@ public class Employee implements iModel {
     private String m_strLastName;
     private String m_strEmail;
     private String m_strPhoneNumber;
-    private String m_strPhoneAdress;
+    private String m_strAdress;
     private String m_strPasswordHash;
 
 
@@ -18,7 +18,7 @@ public class Employee implements iModel {
     }
 
     public void setId(int _iId) {
-        m_iId = m_iId;
+        m_iId = _iId;
     }
 
     public String getFirstName() {
@@ -53,12 +53,12 @@ public class Employee implements iModel {
         m_strPhoneNumber = _strPhoneNumber;
     }
 
-    public String getPhoneAdress() {
-        return m_strPhoneAdress;
+    public String getAdress() {
+        return m_strAdress;
     }
 
-    public void setPhoneAdress(String _strPhoneAdress) {
-        m_strPhoneAdress = _strPhoneAdress;
+    public void setAdress(String _strAdress) {
+        m_strAdress = _strAdress;
     }
 
     public String getPasswordHash() {
@@ -69,21 +69,21 @@ public class Employee implements iModel {
         m_strPasswordHash = _strPasswordHash;
     }
 
-    public Employee(int m_iId, String m_strFirstName, String m_strLastName) {
-        this.m_iId = m_iId;
-        this.m_strFirstName = m_strFirstName;
-        this.m_strLastName = m_strLastName;
+    public Employee(int p_iId, String p_strFirstName, String p_strLastName) {
+        setId(p_iId);
+        setFirstName(p_strFirstName);
+        setLastName(p_strLastName);
     }
 
-    public Employee(int m_iId, String m_strFirstName, String m_strLastName,
-                    String m_strEmail, String m_strPhoneNumber, String m_strPhoneAdress, String m_strPasswordHash) {
-        this.m_iId = m_iId;
-        this.m_strFirstName = m_strFirstName;
-        this.m_strLastName = m_strLastName;
-        this.m_strEmail = m_strEmail;
-        this.m_strPhoneNumber = m_strPhoneNumber;
-        this.m_strPhoneAdress = m_strPhoneAdress;
-        this.m_strPasswordHash = m_strPasswordHash;
+    public Employee(int p_iId, String p_strFirstName, String p_strLastName,
+                    String p_strEmail, String p_strPhoneNumber, String p_strAdress, String p_strPasswordHash) {
+        setId(p_iId);
+        setFirstName(p_strFirstName);
+        setLastName(p_strLastName);
+        setEmail(p_strEmail);
+        setPhoneNumber(p_strPhoneNumber);
+        setAdress(p_strAdress);
+        setPasswordHash(p_strPasswordHash);
     }
 
     @Override
@@ -94,7 +94,6 @@ public class Employee implements iModel {
                 ", m_strLastName='" + getLastName() + '\'' +
                 '}';
     }
-
 
     @Override
     public String fromArrayToJson(ArrayList bean) {
