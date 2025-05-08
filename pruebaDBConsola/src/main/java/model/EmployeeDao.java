@@ -39,22 +39,22 @@ public class EmployeeDao implements iDao{
                 Employee employee = (Employee) bean;
 
                 if(employee.getId() >= 0){
-                    sql += " AND EMPLOYEE_ID ='" + employee.getId() + "'";
+                    sql += " AND employee_id ='" + employee.getId() + "'";
                 }
                 if(employee.getFirstName() != null && employee.getFirstName() != ""){
-                    sql += " AND FIRST_NAME ='" + employee.getFirstName() + "'";
+                    sql += " AND first_name ='" + employee.getFirstName() + "'";
                 }
                 if(employee.getLastName() != null &&  employee.getLastName() != ""){
-                    sql += " AND LAST_NAME ='" + employee.getLastName() + "'";
+                    sql += " AND last_name ='" + employee.getLastName() + "'";
                 }
             }
 
             ResultSet rs = motorSql.executeQuery(sql);
             while(rs.next()){
                 Employee employeeBd= new Employee(
-                        rs.getInt("EMPLOYEE_ID"),
-                        rs.getString("FIRST_NAME"),
-                        rs.getString("LAST_NAME"));
+                        rs.getInt("employee_id"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"));
                 employees.add(employeeBd);
             }
         }

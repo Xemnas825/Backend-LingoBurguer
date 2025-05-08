@@ -39,25 +39,25 @@ public class JobDao implements iDao {
                 Job job = (Job) bean;
 
                 if (job.getId() >= 0) {
-                    sql += " AND JOB_ID ='" + job.getId() + "'";
+                    sql += " AND job_id ='" + job.getId() + "'";
                 }
                 if (job.getTitle() != null && job.getTitle() != "") {
-                    sql += " AND JOB_TITLE ='" + job.getTitle() + "'";
+                    sql += " AND job_title ='" + job.getTitle() + "'";
                 }
                 if (job.getMinSalary() >= 0) {
-                    sql += " AND MIN_SALARY ='" + job.getMinSalary() + "'";
+                    sql += " AND min_salary ='" + job.getMinSalary() + "'";
                 }
                 if (job.getMaxSalary() >= 0) {
-                    sql += " AND MAX_SALARY ='" + job.getMaxSalary() + "'";
+                    sql += " AND max_salary ='" + job.getMaxSalary() + "'";
                 }
             }
             ResultSet rs = motorSql.executeQuery(sql);
             while(rs.next()){
                 Job jobBd= new Job(
-                        rs.getInt("JOB_ID"),
-                        rs.getString("JOB_TITLE"),
-                        rs.getDouble("MIN_SALARY"),
-                        rs.getDouble("MAX_SALARY"));
+                        rs.getInt("job_id"),
+                        rs.getString("job_title"),
+                        rs.getDouble("min_salary"),
+                        rs.getDouble("max_salary"));
                 jobs.add(jobBd);
             }
         }

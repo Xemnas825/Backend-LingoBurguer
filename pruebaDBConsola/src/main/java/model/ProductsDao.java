@@ -41,22 +41,22 @@ public class ProductsDao implements iDao{
                 Product product = (Product) bean;
 
                 if(product.getId() >= 0){
-                    sql += " AND PRODUCT_ID ='" + product.getId() + "'";
+                    sql += " AND product_id ='" + product.getId() + "'";
                 }
                 if(product.getName() != null && product.getName() != ""){
-                    sql += " AND NAME ='" + product.getName() + "'";
+                    sql += " AND name ='" + product.getName() + "'";
                 }
                 if(product.getDescription() != null &&  product.getDescription() != ""){
-                    sql += " AND DESCRIPTION ='" + product.getDescription() + "'";
+                    sql += " AND description ='" + product.getDescription() + "'";
                 }
             }
 
             ResultSet rs = motorSql.executeQuery(sql);
             while(rs.next()){
                 Product productBd = new Product(
-                        rs.getInt("PRODUCT_ID"),
-                        rs.getString("NAME"),
-                        rs.getString("DESCRIPTION"));
+                        rs.getInt("product_id"),
+                        rs.getString("name"),
+                        rs.getString("description"));
                 products.add(productBd);
             }
         }

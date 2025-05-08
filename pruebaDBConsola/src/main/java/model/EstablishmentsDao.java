@@ -40,22 +40,22 @@ public class EstablishmentsDao implements iDao{
                 Establishment establishment = (Establishment) bean;
 
                 if(establishment.getId() >= 0){
-                    sql += " AND ESTABLISHMENT_ID ='" + establishment.getId() + "'";
+                    sql += " AND establishment_id ='" + establishment.getId() + "'";
                 }
                 if(establishment.getName() != null && establishment.getName() != ""){
-                    sql += " AND NAME ='" + establishment.getName() + "'";
+                    sql += " AND name ='" + establishment.getName() + "'";
                 }
                 if(establishment.getAddress() != null &&  establishment.getAddress() != ""){
-                    sql += " AND ADDRESS ='" + establishment.getAddress() + "'";
+                    sql += " AND address ='" + establishment.getAddress() + "'";
                 }
             }
 
             ResultSet rs = motorSql.executeQuery(sql);
             while(rs.next()){
                 Establishment establishmentBd= new Establishment(
-                        rs.getInt("ESTABLISHMENT_ID"),
-                        rs.getString("NAME"),
-                        rs.getString("ADDRESS"));
+                        rs.getInt("establishment_id"),
+                        rs.getString("name"),
+                        rs.getString("address"));
                 establishments.add(establishmentBd);
             }
         }

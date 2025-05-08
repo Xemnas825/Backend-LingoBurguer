@@ -38,18 +38,18 @@ public class CategoryDao implements iDao{
                 Category category = (Category) bean;
 
                 if(category.getId() >= 0){
-                    sql += " AND CATEGORY_ID ='" + category.getId() + "'";
+                    sql += " AND category_id ='" + category.getId() + "'";
                 }
                 if(category.getName() != null && category.getName() != "") {
-                    sql += " AND NAME ='" + category.getName() + "'";
+                    sql += " AND name ='" + category.getName() + "'";
                 }
             }
 
             ResultSet rs = motorSql.executeQuery(sql);
             while(rs.next()){
                 Category categoryBd= new Category(
-                        rs.getInt("CATEGORY_ID"),
-                        rs.getString("NAME"));
+                        rs.getInt("category_id"),
+                        rs.getString("name"));
                 categories.add(categoryBd);
             }
         }

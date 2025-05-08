@@ -41,22 +41,22 @@ public class AllergenDao implements iDao{
                 Allergen allergen = (Allergen) bean;
 
                 if(allergen.getId() >= 0){
-                    sql += " AND ALLERGEN_ID ='" + allergen.getId() + "'";
+                    sql += " AND allergen_id ='" + allergen.getId() + "'";
                 }
                 if(allergen.getName() != null && allergen.getName() != ""){
-                    sql += " AND NAME ='" + allergen.getName() + "'";
+                    sql += " AND name ='" + allergen.getName() + "'";
                 }
                 if(allergen.getDescription() != null &&  allergen.getDescription() != ""){
-                    sql += " AND DESCRIPTION ='" + allergen.getDescription() + "'";
+                    sql += " AND description ='" + allergen.getDescription() + "'";
                 }
             }
 
             ResultSet rs = motorSql.executeQuery(sql);
             while(rs.next()){
                 Allergen allergenBd= new Allergen(
-                    rs.getInt("ALLERGEN_ID"),
-                    rs.getString("NAME"),
-                    rs.getString("DESCRIPTION"));
+                    rs.getInt("allergen_id"),
+                    rs.getString("name"),
+                    rs.getString("description"));
                 allergens.add(allergenBd);
             }
         }

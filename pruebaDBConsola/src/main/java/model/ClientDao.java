@@ -40,22 +40,22 @@ public class ClientDao implements iDao{
                 Client client = (Client) bean;
 
                 if(client.getId() >= 0){
-                    sql += " AND CLIENT_ID ='" + client.getId() + "'";
+                    sql += " AND client_id ='" + client.getId() + "'";
                 }
                 if(client.getFirstName() != null && client.getFirstName() != ""){
-                    sql += " AND FIRST_NAME ='" + client.getFirstName() + "'";
+                    sql += " AND first_name ='" + client.getFirstName() + "'";
                 }
                 if(client.getLastName() != null &&  client.getLastName() != ""){
-                    sql += " AND LAST_NAME ='" + client.getLastName() + "'";
+                    sql += " AND last_name ='" + client.getLastName() + "'";
                 }
             }
 
             ResultSet rs = motorSql.executeQuery(sql);
             while(rs.next()){
                 Client clientBd= new Client(
-                        rs.getInt("CLIENT_ID"),
-                        rs.getString("FIRST_NAME"),
-                        rs.getString("LAST_NAME"));
+                        rs.getInt("client_id"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"));
                 clients.add(clientBd);
             }
         }

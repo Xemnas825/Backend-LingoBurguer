@@ -11,11 +11,6 @@ public class main {
         // Como se hacen las tablas intermedias
         // Como
 
-
-
-
-
-
        /*  AllergenDao aler = new AllergenDao();
         ArrayList<Allergen> allergens = new ArrayList<>();
         allergens = aler.findAll(null); //busca todos los elementos
@@ -72,6 +67,12 @@ public class main {
         employees = est.findAll(new Employee(1,"","")); //busca el alergeno where ID=1
         employees.toString(); */
 
+        PaymentMethodDao est = new PaymentMethodDao();
+        ArrayList<PaymentMethod> paymentMethod = new ArrayList<>();
+        paymentMethod = est.findAll(null); //busca todos los elementos
+        System.out.println(paymentMethod.toString());
+        paymentMethod = est.findAll(new PaymentMethod(1,"")); //busca el alergeno where ID=1
+        paymentMethod.toString();
     }
 }
 
