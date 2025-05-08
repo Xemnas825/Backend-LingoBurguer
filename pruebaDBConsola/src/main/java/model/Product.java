@@ -1,0 +1,98 @@
+package model;
+
+import java.util.ArrayList;
+
+public class Product implements iModel {
+
+    private int m_iId;
+    private String m_strName;
+    private String m_strDescription;
+    private double m_dblPrice;
+    private boolean m_bAvailable;
+    private String m_strImageURL;
+
+
+
+    //TODO Añadir categoryID como foreingKey
+
+
+    public int getId() {
+        return m_iId;
+    }
+
+    public String getName() {
+        return m_strName;
+    }
+
+    public void setName(String _strName) {
+        m_strName = _strName;
+    }
+
+    public String getDescription() {
+        return m_strDescription;
+    }
+
+    public void setDescription(String _strDescription) {
+        m_strDescription = _strDescription;
+    }
+
+    public double getPrice() {
+        return m_dblPrice;
+    }
+
+    public void setPrice(double _dblPrice) {
+        m_dblPrice = _dblPrice;
+    }
+
+    public boolean getAvailable() {
+        return m_bAvailable;
+    }
+
+    public void setAvailable(boolean _bAvailable) {
+        m_bAvailable = _bAvailable;
+    }
+
+    public String getImageURL() {
+        return m_strImageURL;
+    }
+
+    public void setImageURL(String _strImageURL) {
+        m_strImageURL = _strImageURL;
+    }
+
+    public Product(int _iProductId, String _strName, String _strDescription) {
+        m_iId = _iProductId;
+        m_strName = _strName;
+        m_strDescription = _strDescription;
+    }
+
+    public Product(int _iProductId, String _strName, String _strDescription,
+                   double _dblPrice, boolean _bAvailable, String _strImageURL)
+    {
+        m_iId = _iProductId;
+        m_strName = _strName;
+        m_strDescription = _strDescription;
+        m_dblPrice = _dblPrice;
+        m_bAvailable = _bAvailable;
+        m_strImageURL = _strImageURL;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "m_iId=" + getId() +
+                ", m_strName='" + getName() + '\'' +
+                ", m_strDescription='" + getDescription() + '\'' +
+                '}';
+    }
+
+    @Override
+    public String fromArrayToJson(ArrayList bean) {
+        return "";
+    }
+
+    @Override
+    public String toArrayJson(ArrayList bean) {
+        return "";
+    }
+}

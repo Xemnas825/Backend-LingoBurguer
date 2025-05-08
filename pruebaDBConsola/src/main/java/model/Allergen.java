@@ -46,9 +46,9 @@ public class Allergen implements iModel {
     @Override
     public String toString() {
         return "Allergen{" +
-                "m_iId=" + m_iId +
-                ", m_strName='" + m_strName + '\'' +
-                ", m_strDescription='" + m_strDescription + '\'' +
+                "m_iId=" + getId() +
+                ", m_strName='" + getName() + '\'' +
+                ", m_strDescription='" + getDescription() + '\'' +
                 '}';
     }
 
