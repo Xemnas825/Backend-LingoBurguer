@@ -32,7 +32,7 @@ public class Allergen implements iModel {
         this.m_strDescription = m_strDescription;
     }
 
-    public Allergen(int p_iId, String p_strName ) {
+    public Allergen(int p_iId, String p_strName) {
        setId(p_iId);
         setName(p_strName);
     }
