@@ -9,7 +9,7 @@ public class main {
 
         /////////////////TODO DUDAS///////////////////////
         // Como se hacen las tablas intermedias
-        // Como
+        // Como hacemos las fechas, enum,
         // ¿Esta bien hacer un setId cuando en la BD tiene cada ID para que se autoincremente?
 
        /*  AllergenDao aler = new AllergenDao();

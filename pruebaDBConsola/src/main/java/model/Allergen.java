@@ -34,7 +34,7 @@ public class Allergen implements iModel {
 
     public Allergen(int p_iId, String p_strName) {
        setId(p_iId);
-        setName(p_strName);
+       setName(p_strName);
     }
 
     public Allergen(int p_iId, String p_strName, String p_strDescription) {
