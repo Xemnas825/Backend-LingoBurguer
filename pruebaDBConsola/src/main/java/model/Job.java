@@ -13,32 +13,32 @@ public class Job implements iModel{
         return m_iId;
     }
 
-    public void setId(int m_iId) {
-        this.m_iId = m_iId;
+    public void setId(int _iId) {
+        m_iId = _iId;
     }
 
     public String getTitle() {
         return m_strTitle;
     }
 
-    public void setTitle(String m_strTitle) {
-        this.m_strTitle = m_strTitle;
+    public void setTitle(String _strTitle) {
+        m_strTitle = _strTitle;
     }
 
     public double getMinSalary() {
         return m_dblMinSalary;
     }
 
-    public void setMinSalary(double m_dblMinSalary) {
-        this.m_dblMinSalary = m_dblMinSalary;
+    public void setMinSalary(double _dblMinSalary) {
+        m_dblMinSalary = _dblMinSalary;
     }
 
     public double getMaxSalary() {
         return m_dblMaxSalary;
     }
 
-    public void setMaxSalary(double m_dblMaxSalary) {
-        this.m_dblMaxSalary = m_dblMaxSalary;
+    public void setMaxSalary(double _dblMaxSalary) {
+        m_dblMaxSalary = _dblMaxSalary;
     }
 
 

@@ -6,6 +6,16 @@ import java.util.ArrayList;
 public class main {
     public static void main(String[] args) {
 
+
+        /////////////////TODO DUDAS///////////////////////
+        // Como se hacen las tablas intermedias
+        // Como
+
+
+
+
+
+
        /*  AllergenDao aler = new AllergenDao();
         ArrayList<Allergen> allergens = new ArrayList<>();
         allergens = aler.findAll(null); //busca todos los elementos
@@ -21,7 +31,6 @@ public class main {
         System.out.println(products.toString());
         products = pro.findAll(new Product(1,"","")); //busca el alergeno where ID=1
         products.toString();*/
-
 
 
         /* CategoryDao cat = new CategoryDao();
@@ -46,6 +55,7 @@ public class main {
         establishments = est.findAll(null); //busca todos los elementos
         System.out.println(establishments.toString());
         establishments = est.findAll(new Establishment(1,"","")); //busca el alergeno where ID=1
+        establishments = est.findAll(new Establishment(1,"","")); //busca el alergeno where ID=1
         establishments.toString(); */
 
         /*JobDao est = new JobDao();
@@ -54,6 +64,14 @@ public class main {
         System.out.println(jobs.toString());
         jobs = est.findAll(new Job(1,"")); //busca el alergeno where ID=1
         jobs.toString();*/
+
+        /* EmployeeDao est = new EmployeeDao();
+        ArrayList<Employee> employees = new ArrayList<>();
+        employees = est.findAll(null); //busca todos los elementos
+        System.out.println(employees.toString());
+        employees = est.findAll(new Employee(1,"","")); //busca el alergeno where ID=1
+        employees.toString(); */
+
     }
 }
 
