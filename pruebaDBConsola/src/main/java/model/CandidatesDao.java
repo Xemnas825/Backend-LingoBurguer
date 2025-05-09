@@ -53,11 +53,42 @@ public class CandidatesDao implements iDao {
                 if (candidates.getTelephone() !=null && candidates.getTelephone() !=""){
                     sql += "AND telephone='" +candidates.getTelephone()+"'";
                 }
+                if (candidates.getCVurl() !=null && candidates.getCVurl() !=""){
+                    sql += "AND cv_url='" +candidates.getCVurl()+"'";
+                }
+                if (candidates.getLetterPresentation() !=null && candidates.getLetterPresentation() !=""){
+                    sql += "AND letter_presentation='" +candidates.getLetterPresentation()+"'";
+                }
+                if (candidates.getApplication_date() !=null && candidates.getApplication_date() !=""){
+                    sql += "AND application_date='" +candidates.getApplication_date() +"'";
+                }
+                if (candidates.getNotes() !=null && candidates.getNotes() !=""){
+                    sql += "AND notes='" +candidates.getNotes() +"'";
+                }
+                if (candidates.getAvailability() !=null && candidates.getAvailability() !=""){
+                    sql += "AND availability='" +candidates.getAvailability() +"'";
+                }
+            }
+            ResultSet rs = motorSql.executeQuery(sql);
+            while(rs.next()){
+                Candidates candidatesBd= new Candidates(
+                        rs.getInt("candidate_id"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        rs.getString("telephone"),
+                        rs.getString("cv_url"),
+                        rs.getString("letter_presentation"),
+                        rs.getString("application_date"),
+                        rs.getString("notes"),
+                        rs.getString("availability"));
+                candidate.add(candidatesBd);
             }
         }
+        catch (SQLException sqlEx)
+        {
+            System.out.println(sqlEx);
+        }
+        return candidate;
     }
-
-
-
-
 }

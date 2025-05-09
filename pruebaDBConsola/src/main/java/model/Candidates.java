@@ -6,7 +6,7 @@ public class Candidates implements iModel {
     private String m_strFirstName;
     private String m_strLastName;
     private String m_strEmail;
-    private int m_iTelephone;
+    private String m_strTelephone;
     private String m_strCVurl;
     private String m_strLetterPresentation;
     private String m_strApplication_date;
@@ -50,8 +50,8 @@ public class Candidates implements iModel {
         return m_strTelephone;
     }
 
-    public void setTelephone(int _iTelephone) {
-        m_iTelephone = m_iTelephone;
+    public void setTelephone(String _strTelephone) {
+        m_strTelephone = m_strTelephone;
     }
 
     public String getCVurl() {
@@ -100,12 +100,12 @@ public class Candidates implements iModel {
         this.m_strLastName = m_strLastName;
     }
 
-    public Candidates(int m_iId, String m_strFirstName, String m_strLastName, String m_strEmail, int m_iTelephone, String m_strCVurl, String m_strLetterPresentation, String m_strApplication_date, String m_strNotes, String m_strAvailability) {
+    public Candidates(int m_iId, String m_strFirstName, String m_strLastName, String m_strEmail, String m_strTelephone, String m_strCVurl, String m_strLetterPresentation, String m_strApplication_date, String m_strNotes, String m_strAvailability) {
         this.m_iId = m_iId;
         this.m_strFirstName = m_strFirstName;
         this.m_strLastName = m_strLastName;
         this.m_strEmail = m_strEmail;
-        this.m_iTelephone = m_iTelephone;
+        this.m_strTelephone = m_strTelephone;
         this.m_strCVurl = m_strCVurl;
         this.m_strLetterPresentation = m_strLetterPresentation;
         this.m_strApplication_date = m_strApplication_date;
@@ -120,7 +120,7 @@ public class Candidates implements iModel {
                 ", m_strFirstName='" + getFirstName() + '\'' +
                 ", m_strLastName='" + getLastName() + '\'' +
                 ", m_strEmail='" + getEmail() + '\'' +
-                ", m_iTelephone='" + getTelephone() + '\'' +
+                ", m_strTelephone='" + getTelephone() + '\'' +
                 ", m_strCVurl='" + getCVurl() + '\'' +
                 ", m_strLetterPresentation='" + getLetterPresentation() + '\'' +
                 ", m_strApplication_date='" + getApplication_date() + '\'' +
