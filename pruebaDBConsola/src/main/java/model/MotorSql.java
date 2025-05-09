@@ -7,6 +7,7 @@ public class MotorSql implements iMotorSql{
     private static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
     private Connection m_Connection;
     private Statement m_Statement;
+    private PreparedStatement m_PreparedStatement;
     private ResultSet m_ResultSet;
     private static final String MYSQL_URL= "jdbc:mysql://db-lingoburguer.cy1zrbhftco0.us-east-1.rds.amazonaws.com:3306/LingoBurguer";
     private static final String MYSQL_USER = "admin";
@@ -29,6 +30,28 @@ public class MotorSql implements iMotorSql{
         {
             System.out.println(sqlEx.getMessage());
         }
+    }
+
+    @Override
+    public boolean execute(PreparedStatement stmt) {
+        setPreparedStatement(stmt);
+        return execute();
+    }
+
+    @Override
+    public boolean execute() {
+        boolean bRet=false;
+        if(m_PreparedStatement != null)
+        {
+            try{
+                bRet=m_PreparedStatement.execute();
+            }
+            catch(SQLException sqlEx)
+            {
+
+            }
+        }
+        return bRet;
     }
 
     @Override
@@ -71,5 +94,16 @@ public class MotorSql implements iMotorSql{
         {
             System.out.println(sqlEx.getMessage());
         }
+    }
+
+    public Connection getConnection()
+    {
+        return m_Connection;
+    }
+
+
+    public void setPreparedStatement(PreparedStatement stmt)
+    {
+        m_PreparedStatement = stmt;
     }
 }

@@ -8,7 +8,7 @@ public class main {
 
 
         /////////////////TODO DUDAS///////////////////////
-        // Como se hacen las tablas intermedias
+        // Como se hacen las tablas intermedias no se hacen
         // Como hacemos las fechas, enum,
         // ¿Esta bien hacer un setId cuando en la BD tiene cada ID para que se autoincremente?
 
@@ -64,12 +64,19 @@ public class main {
         employees = est.findAll(new Employee(1,"","")); //busca el alergeno where ID=1
         employees.toString(); */
 
-        PaymentMethodDao est = new PaymentMethodDao();
+        /*PaymentMethodDao est = new PaymentMethodDao();
         ArrayList<PaymentMethod> paymentMethod = new ArrayList<>();
         paymentMethod = est.findAll(null); //busca todos los elementos
         System.out.println(paymentMethod.toString());
         paymentMethod = est.findAll(new PaymentMethod(1,"")); //busca el alergeno where ID=1
-        paymentMethod.toString();
+        paymentMethod.toString();*/
+
+        OrderDao est = new OrderDao();
+        ArrayList<Order> order = new ArrayList<>();
+        order = est.findAll(null); //busca todos los elementos
+        System.out.println(order.toString());
+        order = est.findAll(new Order(1,"",0,1)); //busca el alergeno where ID=1
+        order.toString();
     }
 }
 

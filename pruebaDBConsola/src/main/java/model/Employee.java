@@ -9,7 +9,7 @@ public class Employee implements iModel {
     private String m_strLastName;
     private String m_strEmail;
     private String m_strPhoneNumber;
-    private String m_strAdress;
+    private String m_strAddress;
     private String m_strPasswordHash;
 
 
@@ -54,11 +54,11 @@ public class Employee implements iModel {
     }
 
     public String getAdress() {
-        return m_strAdress;
+        return m_strAddress;
     }
 
     public void setAdress(String _strAdress) {
-        m_strAdress = _strAdress;
+        m_strAddress = _strAdress;
     }
 
     public String getPasswordHash() {
@@ -76,13 +76,13 @@ public class Employee implements iModel {
     }
 
     public Employee(int p_iId, String p_strFirstName, String p_strLastName,
-                    String p_strEmail, String p_strPhoneNumber, String p_strAdress, String p_strPasswordHash) {
+                    String p_strEmail, String p_strPhoneNumber, String p_strAddress, String p_strPasswordHash) {
         setId(p_iId);
         setFirstName(p_strFirstName);
         setLastName(p_strLastName);
         setEmail(p_strEmail);
         setPhoneNumber(p_strPhoneNumber);
-        setAdress(p_strAdress);
+        setAdress(p_strAddress);
         setPasswordHash(p_strPasswordHash);
     }
 

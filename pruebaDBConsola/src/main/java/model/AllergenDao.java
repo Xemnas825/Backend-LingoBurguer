@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 public class AllergenDao implements iDao{
 
     private final String SQL_FIND= "SELECT * from allergens WHERE 1=1 ";
+    private final String SQL_DELETE= "DELETE * from allergens WHERE ";
     private iMotorSql motorSql;
     public AllergenDao()
     {
@@ -21,6 +23,48 @@ public class AllergenDao implements iDao{
 
     @Override
     public int delete(Object e) {
+        //Comprobar tipo de objeto (o E o I) para asignarlo al ID del elemento idAllergen
+        Integer idAllergen = -1;
+        Integer iRet = -1;
+
+        if(e instanceof Integer)
+        {
+            idAllergen = (Integer)e;
+        }
+        else if (e instanceof Allergen)
+        {
+            idAllergen = ((Allergen)e).getId();
+        }
+
+        String sql = SQL_DELETE;
+
+        //si puedo asignar el idAllergen PROCEDO A BORRAR
+        if(idAllergen>0)
+        {
+
+            try{
+                motorSql.connect();
+                sql += " allergen_id = ?";
+                PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
+                sentencia.setInt(1, idAllergen);
+                //Esto
+                motorSql.setPreparedStatement(sentencia);
+                motorSql.execute();
+                //O esto
+                motorSql.execute(sentencia);
+            }
+            catch (SQLException ex)
+            {
+                System.out.println(ex);
+
+            }
+            finally
+            {
+                motorSql.disconnect();
+        }
+        }
+
+
         return 0;
     }
 
@@ -34,6 +78,7 @@ public class AllergenDao implements iDao{
 
         ArrayList<Allergen> allergens = new ArrayList<Allergen>();
         String sql = SQL_FIND;
+
         try
         {
             motorSql.connect();
