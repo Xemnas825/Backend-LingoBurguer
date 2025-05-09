@@ -1,7 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-public class Candidates implements iModel {
+public class Candidate implements iModel {
     private int m_iId;
     private String m_strFirstName;
     private String m_strLastName;
@@ -94,28 +94,28 @@ public class Candidates implements iModel {
         m_strAvailability = m_strAvailability;
     }
 
-    public Candidates(int m_iId, String m_strFirstName, String m_strLastName) {
-        this.m_iId = m_iId;
-        this.m_strFirstName = m_strFirstName;
-        this.m_strLastName = m_strLastName;
+    public Candidate(int m_iId, String m_strFirstName, String m_strLastName) {
+        setId(m_iId);
+        setFirstName(m_strFirstName);
+        setLastName(m_strLastName);
     }
 
-    public Candidates(int m_iId, String m_strFirstName, String m_strLastName, String m_strEmail, String m_strTelephone, String m_strCVurl, String m_strLetterPresentation, String m_strApplication_date, String m_strNotes, String m_strAvailability) {
-        this.m_iId = m_iId;
-        this.m_strFirstName = m_strFirstName;
-        this.m_strLastName = m_strLastName;
-        this.m_strEmail = m_strEmail;
-        this.m_strTelephone = m_strTelephone;
-        this.m_strCVurl = m_strCVurl;
-        this.m_strLetterPresentation = m_strLetterPresentation;
-        this.m_strApplication_date = m_strApplication_date;
-        this.m_strNotes = m_strNotes;
-        this.m_strAvailability = m_strAvailability;
+    public Candidate(int m_iId, String m_strFirstName, String m_strLastName, String m_strEmail, String m_strTelephone, String m_strCVurl, String m_strLetterPresentation, String m_strApplication_date, String m_strNotes, String m_strAvailability) {
+        setId(m_iId);
+        setFirstName(m_strFirstName);
+        setLastName(m_strLastName);
+        setEmail(m_strEmail);
+        setTelephone(m_strTelephone);
+        setCVurl(m_strCVurl);
+        setLetterPresentation(m_strLetterPresentation);
+        setApplication_date(m_strApplication_date);
+        setNotes(m_strNotes);
+        setAvailability(m_strAvailability);
     }
 
     @Override
     public String toString() {
-        return "Candidates{" +
+        return "Candidate{" +
                 "m_iId=" + getId() +
                 ", m_strFirstName='" + getFirstName() + '\'' +
                 ", m_strLastName='" + getLastName() + '\'' +
