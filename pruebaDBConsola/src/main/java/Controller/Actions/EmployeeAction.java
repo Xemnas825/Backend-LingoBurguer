@@ -1,13 +1,13 @@
 package Controller.Actions;
 
-import Model.Product;
-import Model.ProductDao;
+import Model.Employee;
+import Model.EmployeeDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
-public class ProductAction implements IAction {
+public class EmployeeAction implements IAction {
 
 
     @Override
@@ -19,9 +19,9 @@ public class ProductAction implements IAction {
     private String findAll(HttpServletRequest request,
                            HttpServletResponse response) {
 
-        ProductDao productDao = new ProductDao();
-        ArrayList<Product> product = productDao.findAll(null);
-        return Product.toArrayJSon(product);
+        EmployeeDao employeeDao = new EmployeeDao();
+        ArrayList<Employee> product = employeeDao.findAll(null);
+        return Employee.toArrayJSon(product);
     }
 
 

@@ -1,13 +1,14 @@
 package Controller.Actions;
 
-import Model.Product;
-import Model.ProductDao;
+
+import Model.Client;
+import Model.ClientDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
-public class ProductAction implements IAction {
+public class ClientAction implements IAction {
 
 
     @Override
@@ -19,9 +20,9 @@ public class ProductAction implements IAction {
     private String findAll(HttpServletRequest request,
                            HttpServletResponse response) {
 
-        ProductDao productDao = new ProductDao();
-        ArrayList<Product> product = productDao.findAll(null);
-        return Product.toArrayJSon(product);
+        ClientDao clientDao = new ClientDao();
+        ArrayList<Client> product = clientDao.findAll(null);
+        return Client.toArrayJSon(product);
     }
 
 

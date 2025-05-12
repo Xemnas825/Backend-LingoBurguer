@@ -104,4 +104,15 @@ public class Employee implements iModel {
     public String toArrayJson(ArrayList bean) {
         return "";
     }
+
+    public static String toArrayJSon(ArrayList<Employee> employee) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(product);
+
+        return resp;
+    }
+
 }

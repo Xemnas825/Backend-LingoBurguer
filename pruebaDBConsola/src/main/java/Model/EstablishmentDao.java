@@ -4,11 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class EstablishmentsDao implements iDao{
+public class EstablishmentDao implements iDao{
 
     private final String SQL_FIND= "SELECT * from establishments WHERE 1=1 ";
     private iMotorSql motorSql;
-    public EstablishmentsDao()
+    public EstablishmentDao()
     {
         motorSql = new MotorSql();
 

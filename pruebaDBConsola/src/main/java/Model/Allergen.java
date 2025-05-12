@@ -8,6 +8,7 @@ public class Allergen implements iModel {
     private String m_strName;
     private String m_strDescription;
 
+
     public int getId() {
         return m_iId;
     }
@@ -33,8 +34,8 @@ public class Allergen implements iModel {
     }
 
     public Allergen(int p_iId, String p_strName) {
-       setId(p_iId);
-       setName(p_strName);
+        setId(p_iId);
+        setName(p_strName);
     }
 
     public Allergen(int p_iId, String p_strName, String p_strDescription) {
@@ -60,5 +61,15 @@ public class Allergen implements iModel {
     @Override
     public String toArrayJson(ArrayList bean) {
         return null;
+    }
+
+    public static String toArrayJSon(ArrayList<Allergen> allergen) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(product);
+
+        return resp;
     }
 }

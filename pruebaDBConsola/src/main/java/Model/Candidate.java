@@ -14,6 +14,7 @@ public class Candidate implements iModel {
     private String m_strAvailability;
     private int m_fkJobOffer;
 
+
     public int getId() {
         return m_iId;
     }
@@ -149,4 +150,15 @@ public class Candidate implements iModel {
     public String toArrayJson(ArrayList bean) {
         return null;
     }
+
+    public static String toArrayJSon(ArrayList<Candidate> candidate) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(product);
+
+        return resp;
+    }
+
 }

@@ -6,6 +6,7 @@ public class Category implements iModel{
     private int m_iId;
     private String m_strName;
 
+
     public void setId(int _iId){
         m_iId = _iId;
     }
@@ -45,5 +46,14 @@ public class Category implements iModel{
         return "";
     }
 
+    public static String toArrayJSon(ArrayList<Category> category) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(product);
+
+        return resp;
+    }
 
 }

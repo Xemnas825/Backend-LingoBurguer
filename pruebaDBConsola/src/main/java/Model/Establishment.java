@@ -10,6 +10,7 @@ public class Establishment implements iModel{
     private String m_strTelephone;
     private String m_strOpeningHours;
 
+
     public void setId(int _iId) {
         m_iId = _iId;
     }
@@ -76,4 +77,15 @@ public class Establishment implements iModel{
     public String toArrayJson(ArrayList bean) {
         return "";
     }
+
+    public static String toArrayJSon(ArrayList<Establishment> establishment) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(product);
+
+        return resp;
+    }
+
 }

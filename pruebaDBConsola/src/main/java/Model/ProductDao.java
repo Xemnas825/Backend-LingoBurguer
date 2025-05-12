@@ -4,12 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProductsDao implements iDao{
+public class ProductDao implements iDao{
 
     private final String SQL_FIND = "SELECT * FROM products WHERE 1=1";
     private iMotorSql motorSql;
 
-    public ProductsDao()
+    public ProductDao()
     {
         motorSql = new MotorSql();
 

@@ -13,6 +13,7 @@ public class Client implements iModel {
     private String m_strPasswordHash;
 
 
+
     public void setId(int _iId) {
         m_iId = _iId;
     }
@@ -96,4 +97,15 @@ public class Client implements iModel {
     public String toArrayJson(ArrayList bean) {
         return "";
     }
+
+    public static String toArrayJSon(ArrayList<Client> client) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(product);
+
+        return resp;
+    }
+
 }
