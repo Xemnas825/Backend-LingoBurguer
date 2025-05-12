@@ -1,5 +1,8 @@
 package Model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 
 public class Job implements iModel{
@@ -73,6 +76,16 @@ public class Job implements iModel{
     @Override
     public String toArrayJson(ArrayList bean) {
         return "";
+    }
+
+    public static String toArrayJSon(ArrayList<Job> job) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(job);
+
+        return resp;
     }
 }
 

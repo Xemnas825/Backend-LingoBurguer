@@ -108,7 +108,9 @@ public class Candidate implements iModel {
         setLastName(m_strLastName);
     }
 
-    public Candidate(int m_iId, String m_strFirstName, String m_strLastName, String m_strEmail, String m_strTelephone, String m_strCVurl, String m_strLetterPresentation, String m_strApplication_date, String m_strNotes, String m_strAvailability,int p_fkJobOffer) {
+    public Candidate(int m_iId, String m_strFirstName, String m_strLastName, String m_strEmail,
+                     String m_strTelephone, String m_strCVurl, String m_strLetterPresentation,
+                     String m_strApplication_date, String m_strNotes, String m_strAvailability,int p_fkJobOffer) {
         setId(m_iId);
         setFirstName(m_strFirstName);
         setLastName(m_strLastName);

@@ -1,6 +1,9 @@
 package Model;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -160,7 +163,7 @@ public class Order implements iModel {
         setId(p_iId);
         setDateOrder(p_DateOrder);
         setTotalPrice(p_dblTotalPrice);
-        setStatus((Status) p_eStatus);
+        // todo: setStatus((Status) p_eStatus);
         setFkEstablishment(p_fkEstablishment);
         setFkEmployee(p_fkEmployee);
         setFkClient(p_fkClient);
@@ -190,5 +193,15 @@ public class Order implements iModel {
     @Override
     public String toArrayJson(ArrayList bean) {
         return "";
+    }
+
+    public static String toArrayJSon(ArrayList<Order> order) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(order);
+
+        return resp;
     }
 }

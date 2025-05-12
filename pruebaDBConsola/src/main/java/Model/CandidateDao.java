@@ -81,7 +81,8 @@ public class CandidateDao implements iDao {
                         rs.getString("letter_presentation"),
                         rs.getString("application_date"),
                         rs.getString("notes"),
-                        rs.getString("availability"));
+                        rs.getString("availability"),
+                        rs.getInt("job_offer_id1"));
                 candidates.add(candidatesBd);
             }
         }

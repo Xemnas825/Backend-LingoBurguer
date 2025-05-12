@@ -1,5 +1,8 @@
 package Model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -141,5 +144,15 @@ public class JobOffer implements iModel {
     @Override
     public String toArrayJson(ArrayList bean) {
         return null;
+    }
+
+    public static String toArrayJSon(ArrayList<JobOffer> jobOffer) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(jobOffer);
+
+        return resp;
     }
 }

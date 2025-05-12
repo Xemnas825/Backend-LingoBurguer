@@ -1,5 +1,8 @@
 package Model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 
 public class PaymentMethod implements iModel {
@@ -51,4 +54,15 @@ public class PaymentMethod implements iModel {
     public String toArrayJson(ArrayList bean) {
         return "";
     }
+
+    public static String toArrayJSon(ArrayList<PaymentMethod> paymentMethod) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(paymentMethod);
+
+        return resp;
+    }
+
 }
