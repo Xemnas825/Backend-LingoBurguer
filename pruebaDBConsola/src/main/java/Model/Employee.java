@@ -1,24 +1,24 @@
-package model;
+package Model;
 
 import java.util.ArrayList;
 
-public class Client implements iModel {
+public class Employee implements iModel {
 
     private int m_iId;
     private String m_strFirstName;
     private String m_strLastName;
     private String m_strEmail;
     private String m_strPhoneNumber;
-    private String m_strPhoneAdress;
+    private String m_strAddress;
     private String m_strPasswordHash;
 
 
-    public void setId(int _iId) {
-        m_iId = _iId;
-    }
-
     public int getId() {
         return m_iId;
+    }
+
+    public void setId(int _iId) {
+        m_iId = _iId;
     }
 
     public String getFirstName() {
@@ -42,7 +42,7 @@ public class Client implements iModel {
     }
 
     public void setEmail(String _strEmail) {
-        m_strEmail = m_strEmail;
+        m_strEmail = _strEmail;
     }
 
     public String getPhoneNumber() {
@@ -53,12 +53,12 @@ public class Client implements iModel {
         m_strPhoneNumber = _strPhoneNumber;
     }
 
-    public String getPhoneAdress() {
-        return m_strPhoneAdress;
+    public String getAdress() {
+        return m_strAddress;
     }
 
-    public void setPhoneAdress(String _strPhoneAdress) {
-        m_strPhoneAdress = _strPhoneAdress;
+    public void setAdress(String _strAdress) {
+        m_strAddress = _strAdress;
     }
 
     public String getPasswordHash() {
@@ -69,18 +69,26 @@ public class Client implements iModel {
         m_strPasswordHash = _strPasswordHash;
     }
 
-    //todo variable de "created at" de formato DATE
-
-    //Preguntar si en el constructor deberiamos declarar un ID siendo que en la base de datos se autoincrementa
-    public Client(int p_iId, String p_strFirstName, String p_strLastName) {
+    public Employee(int p_iId, String p_strFirstName, String p_strLastName) {
         setId(p_iId);
         setFirstName(p_strFirstName);
         setLastName(p_strLastName);
     }
 
+    public Employee(int p_iId, String p_strFirstName, String p_strLastName,
+                    String p_strEmail, String p_strPhoneNumber, String p_strAddress, String p_strPasswordHash) {
+        setId(p_iId);
+        setFirstName(p_strFirstName);
+        setLastName(p_strLastName);
+        setEmail(p_strEmail);
+        setPhoneNumber(p_strPhoneNumber);
+        setAdress(p_strAddress);
+        setPasswordHash(p_strPasswordHash);
+    }
+
     @Override
     public String toString() {
-        return "Client{" +
+        return "Category{" +
                 "m_iId=" + getId() +
                 ", m_strFirstName='" + getFirstName() + '\'' +
                 ", m_strLastName='" + getLastName() + '\'' +

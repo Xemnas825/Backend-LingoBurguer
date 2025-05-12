@@ -1,17 +1,16 @@
-package model;
+package Model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ClientDao implements iDao{
+public class EmployeeDao implements iDao{
 
-    private final String SQL_FIND= "SELECT * from clients WHERE 1=1 ";
+    private final String SQL_FIND= "SELECT * from employees WHERE 1=1 ";
     private iMotorSql motorSql;
-    public ClientDao()
+    public EmployeeDao()
     {
         motorSql = new MotorSql();
-
     }
 
     @Override
@@ -31,32 +30,32 @@ public class ClientDao implements iDao{
 
     @Override
     public ArrayList findAll(Object bean) {
-        ArrayList<Client> clients = new ArrayList<Client>();
+        ArrayList<Employee> employees = new ArrayList<Employee>();
         String sql = SQL_FIND;
         try
         {
             motorSql.connect();
             if(bean !=null) {
-                Client client = (Client) bean;
+                Employee employee = (Employee) bean;
 
-                if(client.getId() >= 0){
-                    sql += " AND client_id ='" + client.getId() + "'";
+                if(employee.getId() >= 0){
+                    sql += " AND employee_id ='" + employee.getId() + "'";
                 }
-                if(client.getFirstName() != null && client.getFirstName() != ""){
-                    sql += " AND first_name ='" + client.getFirstName() + "'";
+                if(employee.getFirstName() != null && employee.getFirstName() != ""){
+                    sql += " AND first_name ='" + employee.getFirstName() + "'";
                 }
-                if(client.getLastName() != null &&  client.getLastName() != ""){
-                    sql += " AND last_name ='" + client.getLastName() + "'";
+                if(employee.getLastName() != null &&  employee.getLastName() != ""){
+                    sql += " AND last_name ='" + employee.getLastName() + "'";
                 }
             }
 
             ResultSet rs = motorSql.executeQuery(sql);
             while(rs.next()){
-                Client clientBd= new Client(
-                        rs.getInt("client_id"),
+                Employee employeeBd= new Employee(
+                        rs.getInt("employee_id"),
                         rs.getString("first_name"),
                         rs.getString("last_name"));
-                clients.add(clientBd);
+                employees.add(employeeBd);
             }
         }
         catch (SQLException sqlEx)
@@ -64,6 +63,6 @@ public class ClientDao implements iDao{
             System.out.println(sqlEx);
         }
 
-        return clients;
+        return employees;
     }
 }

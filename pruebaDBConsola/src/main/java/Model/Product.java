@@ -1,6 +1,8 @@
-package model;
+package Model;
 
 import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class Product implements iModel {
 
@@ -108,5 +110,15 @@ public class Product implements iModel {
     @Override
     public String toArrayJson(ArrayList bean) {
         return "";
+    }
+
+    public static String toArrayJSon(ArrayList<Product> product) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(product);
+
+        return resp;
     }
 }
