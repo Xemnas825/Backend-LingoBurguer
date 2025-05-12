@@ -8,6 +8,9 @@ public class OrderDetail implements iModel{
     private double m_dblUnitPrice;
     private String m_strNotes;
     private String m_strDescription;
+    private int m_fkOrderId;
+    private int m_fkProductId;
+
 
     public int getId() {
         return m_iId;
@@ -49,16 +52,34 @@ public class OrderDetail implements iModel{
         this.m_strDescription = m_strDescription;
     }
 
+    public int getOrderId() {
+        return m_fkOrderId;
+    }
+
+    public void setOrderId(int _fkOrderId) {
+        m_fkOrderId = _fkOrderId;
+    }
+
+    public int getProductId() {
+        return m_fkProductId;
+    }
+
+    public void setProductId(int _iProductId) {
+        m_fkProductId = _iProductId;
+    }
+
     public OrderDetail(int p_iId) {
         setId(p_iId);
     }
 
-    public OrderDetail(int p_iId, int p_iQuantity, double p_dblUnitPrice, String p_strNotes, String p_strDescription) {
+    public OrderDetail(int p_iId, int p_iQuantity, double p_dblUnitPrice, String p_strNotes, /*String p_strDescription,*/int p_fkOrder, int p_fkProductId) {
         setId(p_iId);
         setQuantity(p_iQuantity);
         setUnitPrice(p_dblUnitPrice);
         setNotes(p_strNotes);
-        setDescription(p_strDescription);
+        // setDescription(p_strDescription); *No contamos con description en la base de datos*
+        setOrderId(p_fkOrder);
+        setProductId(p_fkProductId);
     }
 
     @Override

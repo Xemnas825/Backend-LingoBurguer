@@ -61,9 +61,14 @@ public class OrderDao implements iDao {
                 Order orderBd = new Order(
                         rs.getInt("order_id"),
                         rs.getDate("date_order"),
-                        rs.getInt("total_price"),
-                        (eStatus)rs.getInt("status"),
-                        rs.getInt("establishment_id2"));
+                        rs.getInt("type_order"),
+                        rs.getInt("status"),
+                        rs.getDouble("total_price"),
+                        rs.getInt("establishment_id2"),
+                        rs.getInt("employee_id1"),
+                        rs.getInt("client_id1"),
+                        rs.getInt("payment_method_id1")
+                );
                 orders.add(orderBd);
             }
 

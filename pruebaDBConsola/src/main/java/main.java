@@ -12,6 +12,10 @@ public class main {
         // Como hacemos las fechas, enum,
         // ¿Esta bien hacer un setId cuando en la BD tiene cada ID para que se autoincremente?
 
+
+
+
+
        /*  AllergenDao aler = new AllergenDao();
         ArrayList<Allergen> allergens = new ArrayList<>();
         allergens = aler.findAll(null); //busca todos los elementos
@@ -71,12 +75,12 @@ public class main {
         paymentMethod = est.findAll(new PaymentMethod(1,"")); //busca el alergeno where ID=1
         paymentMethod.toString();*/
 
-        OrderDao est = new OrderDao();
+        /*OrderDao est = new OrderDao();
         ArrayList<Order> order = new ArrayList<>();
         order = est.findAll(null); //busca todos los elementos
         System.out.println(order.toString());
         order = est.findAll(new Order(1,"",0,1)); //busca el alergeno where ID=1
-        order.toString();
+        order.toString();*/
     }
 }
 

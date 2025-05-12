@@ -39,19 +39,19 @@ public class OrderDetailDao implements iDao {
         {
             motorSql.connect();
             if(bean !=null) {
-                OrderDetail orderDetails = (Order) bean;
+                OrderDetail orderDetail = (OrderDetail) bean;
 
-                if(orderDetails.getId() >= 0){
-                    sql += " AND detail_id ='" + orderDetails.getId() + "'";
+                if(orderDetail.getId() >= 0){
+                    sql += " AND detail_id ='" + orderDetail.getId() + "'";
                 }
-                if(orderDetails.getQuantity() >= 0){
-                    sql += " AND detail_id ='" + orderDetails.getQuantity() + "'";
+                if(orderDetail.getQuantity() >= 0){
+                    sql += " AND detail_id ='" + orderDetail.getQuantity() + "'";
                 }
-                if(orderDetails.getName() != null && orderDetails.getName() != ""){
-                    sql += " AND name ='" + orderDetails.getName() + "'";
+                if(orderDetail.getQuantity() >= 0){
+                    sql += " AND quantity ='" + orderDetail.getQuantity() + "'";
                 }
-                if(orderDetails.getDescription() != null &&  orderDetails.getDescription() != ""){
-                    sql += " AND description ='" + orderDetails.getDescription() + "'";
+                if(orderDetail.getDescription() != null &&  orderDetail.getDescription() != ""){
+                    sql += " AND description ='" + orderDetail.getDescription() + "'";
                 }
             }
 
@@ -59,8 +59,12 @@ public class OrderDetailDao implements iDao {
             while(rs.next()){
                 OrderDetail orderDetailBd= new OrderDetail(
                         rs.getInt("detail_id"),
-                        rs.getString("name"),
-                        rs.getString("description"));
+                        rs.getInt("quantity"),
+                        rs.getDouble("unit_price"),
+                        rs.getString("notes"),
+                        rs.getInt("order_id1"),
+                        rs.getInt("product_id2")
+                        );
                 orderDetails.add(orderDetailBd);
             }
         }

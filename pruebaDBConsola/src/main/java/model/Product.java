@@ -10,6 +10,7 @@ public class Product implements iModel {
     private double m_dblPrice;
     private boolean m_bAvailable;
     private String m_strImageURL;
+    private int m_iCategory;
 
 
 
@@ -64,6 +65,14 @@ public class Product implements iModel {
         m_strImageURL = _strImageURL;
     }
 
+    public int getCategory() {
+        return m_iCategory;
+    }
+
+    public void setCategory(int _iCategory) {
+        m_iCategory = _iCategory;
+    }
+
     public Product(int p_iProductId, String p_strName, String p_strDescription) {
         setId(p_iProductId);
         setName(p_strName);
@@ -71,7 +80,7 @@ public class Product implements iModel {
     }
 
     public Product(int p_iProductId, String p_strName, String p_strDescription,
-                   double p_dblPrice, boolean p_bAvailable, String p_strImageURL)
+                   double p_dblPrice, boolean p_bAvailable, String p_strImageURL,int p_iCategory)
     {
         setId(p_iProductId);
         setName(p_strName);
@@ -79,6 +88,7 @@ public class Product implements iModel {
         setPrice(p_dblPrice);
         setAvailable(p_bAvailable);
         setImageURL(p_strImageURL);
+        setCategory(p_iCategory);
     }
 
     @Override

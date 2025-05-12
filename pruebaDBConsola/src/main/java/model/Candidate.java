@@ -12,7 +12,7 @@ public class Candidate implements iModel {
     private String m_strApplication_date;
     private String m_strNotes;
     private String m_strAvailability;
-
+    private int m_fkJobOffer;
 
     public int getId() {
         return m_iId;
@@ -94,13 +94,21 @@ public class Candidate implements iModel {
         m_strAvailability = m_strAvailability;
     }
 
+    public int getJobOffer() {
+        return m_fkJobOffer;
+    }
+
+    public void setJobOffer(int _fkJobOffer) {
+        m_fkJobOffer = _fkJobOffer;
+    }
+
     public Candidate(int m_iId, String m_strFirstName, String m_strLastName) {
         setId(m_iId);
         setFirstName(m_strFirstName);
         setLastName(m_strLastName);
     }
 
-    public Candidate(int m_iId, String m_strFirstName, String m_strLastName, String m_strEmail, String m_strTelephone, String m_strCVurl, String m_strLetterPresentation, String m_strApplication_date, String m_strNotes, String m_strAvailability) {
+    public Candidate(int m_iId, String m_strFirstName, String m_strLastName, String m_strEmail, String m_strTelephone, String m_strCVurl, String m_strLetterPresentation, String m_strApplication_date, String m_strNotes, String m_strAvailability,int p_fkJobOffer) {
         setId(m_iId);
         setFirstName(m_strFirstName);
         setLastName(m_strLastName);
@@ -111,6 +119,7 @@ public class Candidate implements iModel {
         setApplication_date(m_strApplication_date);
         setNotes(m_strNotes);
         setAvailability(m_strAvailability);
+        setJobOffer(p_fkJobOffer);
     }
 
     @Override
@@ -126,6 +135,7 @@ public class Candidate implements iModel {
                 ", m_strApplication_date='" + getApplication_date() + '\'' +
                 ", m_strNotes='" + getNotes() + '\'' +
                 ", m_strAvailability='" + getAvailability() + '\'' +
+                ", m_fkJobOffer='" + getJobOffer() + '\'' +
                 '}';
     }
     @Override

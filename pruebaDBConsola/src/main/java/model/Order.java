@@ -9,7 +9,7 @@ public class Order implements iModel {
     private int m_iId;
     private Date m_DateOrder;
     protected enum TypeOrder {online, physical};
-    protected enum Status {local, online, take_away};
+    public enum Status {local, online, take_away};
     private TypeOrder m_eTypeorder;
     private Status m_eStatus;
     private double m_dblTotalPrice;
@@ -154,11 +154,13 @@ public class Order implements iModel {
         m_arrayOrderDetails = new ArrayList<>();
     }
 
-    public Order(int p_iId, Date p_DateOrder, TypeOrder p_eTypeorder, Status p_eStatus, double p_dblTotalPrice, int p_fkEstablishment, int p_fkEmployee, int p_fkClient, int p_fkPaymentMethod) {
+    public Order(int p_iId, Date p_DateOrder, int p_eTypeorder,
+                 int p_eStatus, double p_dblTotalPrice, int p_fkEstablishment,
+                 int p_fkEmployee, int p_fkClient, int p_fkPaymentMethod) {
         setId(p_iId);
         setDateOrder(p_DateOrder);
         setTotalPrice(p_dblTotalPrice);
-        setStatus(p_eStatus);
+        setStatus((Status) p_eStatus);
         setFkEstablishment(p_fkEstablishment);
         setFkEmployee(p_fkEmployee);
         setFkClient(p_fkClient);
