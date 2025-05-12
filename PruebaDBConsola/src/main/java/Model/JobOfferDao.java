@@ -82,7 +82,7 @@ public class JobOfferDao implements iDao{
                         rs.getBoolean("status"),
                         rs.getDate("publication_date"),
                         rs.getDate("end_date"),
-                        rs.getString("experiencie_required"),
+                        rs.getString("experience_required"),
                         rs.getString("education_required"));
                 jobOffers.add(jobOfferBd);
             }

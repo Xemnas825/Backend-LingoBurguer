@@ -27,7 +27,7 @@ public class JobOffer implements iModel {
     }
 
     public void setID(int _iID) {
-        m_iID = m_iID;
+        m_iID = _iID;
     }
 
     public String getTitle() {
@@ -35,7 +35,7 @@ public class JobOffer implements iModel {
     }
 
     public void setTitle(String _strTitle) {
-        m_strTitle = m_strTitle;
+        m_strTitle = _strTitle;
     }
 
     public String getDescription() {
@@ -43,7 +43,7 @@ public class JobOffer implements iModel {
     }
 
     public void setDescription(String _strDescription) {
-        m_strDescription = m_strDescription;
+        m_strDescription = _strDescription;
     }
 
     public double getMinSalary() {
@@ -51,7 +51,7 @@ public class JobOffer implements iModel {
     }
 
     public void setMinSalary(double _dblMinSalary) {
-        m_dblMinSalary = m_dblMinSalary;
+        m_dblMinSalary = _dblMinSalary;
     }
 
     public double getMaxSalary() {
@@ -59,7 +59,7 @@ public class JobOffer implements iModel {
     }
 
     public void setMaxSalary(double _dblMaxSalary) {
-        m_dblMaxSalary = m_dblMaxSalary;
+        m_dblMaxSalary = _dblMaxSalary;
     }
 
     public boolean isStatus() {
@@ -67,7 +67,7 @@ public class JobOffer implements iModel {
     }
 
     public void setStatus(boolean _bStatus) {
-        m_bStatus = m_bStatus;
+        m_bStatus = _bStatus;
     }
 
     public Date getPublicationDate() {
@@ -75,7 +75,7 @@ public class JobOffer implements iModel {
     }
 
     public void setPublicationDate(Date _dPublicationDate) {
-        m_dPublicationDate = m_dPublicationDate;
+        m_dPublicationDate = _dPublicationDate;
     }
 
     public Date getEndDate() {
@@ -83,7 +83,7 @@ public class JobOffer implements iModel {
     }
 
     public void setEndDate(Date _dEndDate) {
-        m_dEndDate = m_dEndDate;
+        m_dEndDate = _dEndDate;
     }
 
     public String getExperienceRequired() {
@@ -91,7 +91,7 @@ public class JobOffer implements iModel {
     }
 
     public void setExperienceRequired(String _strExperienceRequired) {
-        m_strExperienceRequired = m_strExperienceRequired;
+        m_strExperienceRequired = _strExperienceRequired;
     }
 
     public String getEducationRequired() {
@@ -99,26 +99,26 @@ public class JobOffer implements iModel {
     }
 
     public void setEducationRequired(String _strEducationRequired) {
-        m_strEducationRequired = m_strEducationRequired;
+        m_strEducationRequired = _strEducationRequired;
     }
 
-    public JobOffer(int m_iID, String m_strTitle, String m_strDescription) {
-        setID(m_iID);
-        setTitle(m_strTitle);
-        setDescription(m_strDescription);
+    public JobOffer(int p_iID, String p_strTitle, String p_strDescription) {
+        setID(p_iID);
+        setTitle(p_strTitle);
+        setDescription(p_strDescription);
     }
 
-    public JobOffer(int m_iID, String m_strTitle, String m_strDescription, double m_dblMinSalary, double m_dblMaxSalary, boolean m_bStatus, Date m_strPublicationDate, Date m_strEndDate, String m_strExperienceRequired, String m_strEducationRequired) {
-        setID(m_iID);
-        setTitle(m_strTitle);
-        setDescription(m_strDescription);
-        setMinSalary(m_dblMinSalary);
-        setMaxSalary(m_dblMaxSalary);
-        setStatus(m_bStatus);
-        setPublicationDate(m_dPublicationDate);
-        setEndDate(m_dEndDate);
-        setExperienceRequired(m_strExperienceRequired);
-        setEducationRequired(m_strEducationRequired);
+    public JobOffer(int p_iID, String p_strTitle, String p_strDescription, double p_dblMinSalary, double p_dblMaxSalary, boolean p_bStatus, Date p_strPublicationDate, Date p_strEndDate, String p_strExperienceRequired, String p_strEducationRequired) {
+        setID(p_iID);
+        setTitle(p_strTitle);
+        setDescription(p_strDescription);
+        setMinSalary(p_dblMinSalary);
+        setMaxSalary(p_dblMaxSalary);
+        setStatus(p_bStatus);
+        setPublicationDate(p_strPublicationDate);
+        setEndDate(p_strEndDate);
+        setExperienceRequired(p_strExperienceRequired);
+        setEducationRequired(p_strEducationRequired);
     }
 
     @Override
