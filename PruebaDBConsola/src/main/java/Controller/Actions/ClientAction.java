@@ -17,8 +17,7 @@ public class ClientAction implements IAction {
     }
 
 
-    private String findAll(HttpServletRequest request,
-                           HttpServletResponse response) {
+    private String findAll(HttpServletRequest request, HttpServletResponse response) {
 
         ClientDao clientDao = new ClientDao();
         ArrayList<Client> product = clientDao.findAll(null);

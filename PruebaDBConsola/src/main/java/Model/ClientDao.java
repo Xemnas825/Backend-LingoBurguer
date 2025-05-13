@@ -48,6 +48,18 @@ public class ClientDao implements iDao{
                 if(client.getLastName() != null &&  client.getLastName() != ""){
                     sql += " AND last_name ='" + client.getLastName() + "'";
                 }
+                if(client.getEmail() != null &&  client.getEmail() != ""){
+                    sql += " AND email ='" + client.getEmail() + "'";
+                }
+                if(client.getPhoneNumber() != null &&  client.getPhoneNumber() != ""){
+                    sql += " AND telephone ='" + client.getPhoneNumber() + "'";
+                }
+                if(client.getAddress() != null &&  client.getAddress() != ""){
+                    sql += " AND address ='" + client.getAddress() + "'";
+                }
+                if(client.getPasswordHash() != null &&  client.getPasswordHash() != ""){
+                    sql += " AND password_hash ='" + client.getPasswordHash() + "'";
+                }
             }
 
             ResultSet rs = motorSql.executeQuery(sql);
@@ -55,7 +67,11 @@ public class ClientDao implements iDao{
                 Client clientBd= new Client(
                         rs.getInt("client_id"),
                         rs.getString("first_name"),
-                        rs.getString("last_name"));
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        rs.getString("telephone"),
+                        rs.getString("address"),
+                        rs.getString("password_hash"));
                 clients.add(clientBd);
             }
         }

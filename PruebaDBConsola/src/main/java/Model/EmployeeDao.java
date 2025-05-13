@@ -47,6 +47,18 @@ public class EmployeeDao implements iDao{
                 if(employee.getLastName() != null &&  employee.getLastName() != ""){
                     sql += " AND last_name ='" + employee.getLastName() + "'";
                 }
+                if(employee.getEmail() != null &&  employee.getEmail() != ""){
+                    sql += " AND email ='" + employee.getEmail() + "'";
+                }
+                if(employee.getPhoneNumber() != null &&  employee.getPhoneNumber() != ""){
+                    sql += " AND telephone ='" + employee.getPhoneNumber() + "'";
+                }
+                if(employee.getAddress() != null &&  employee.getAddress() != ""){
+                    sql += " AND address ='" + employee.getAddress() + "'";
+                }
+                if(employee.getPasswordHash() != null &&  employee.getPasswordHash() != ""){
+                    sql += " AND password_hash ='" + employee.getPasswordHash() + "'";
+                }
             }
 
             ResultSet rs = motorSql.executeQuery(sql);
@@ -54,7 +66,12 @@ public class EmployeeDao implements iDao{
                 Employee employeeBd= new Employee(
                         rs.getInt("employee_id"),
                         rs.getString("first_name"),
-                        rs.getString("last_name"));
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        rs.getString("telephone"),
+                        rs.getString("address"),
+                        rs.getString("password_hash")
+                );
                 employees.add(employeeBd);
             }
         }

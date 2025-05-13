@@ -12,9 +12,8 @@ public class Client implements iModel {
     private String m_strLastName;
     private String m_strEmail;
     private String m_strPhoneNumber;
-    private String m_strPhoneAdress;
+    private String m_strAddress;
     private String m_strPasswordHash;
-
 
 
     public void setId(int _iId) {
@@ -57,12 +56,12 @@ public class Client implements iModel {
         m_strPhoneNumber = _strPhoneNumber;
     }
 
-    public String getPhoneAdress() {
-        return m_strPhoneAdress;
+    public String getAddress() {
+        return m_strAddress;
     }
 
-    public void setPhoneAdress(String _strPhoneAdress) {
-        m_strPhoneAdress = _strPhoneAdress;
+    public void setAddress(String _strAddress) {
+        m_strAddress = _strAddress;
     }
 
     public String getPasswordHash() {
@@ -82,12 +81,26 @@ public class Client implements iModel {
         setLastName(p_strLastName);
     }
 
+    public Client(int p_iId, String p_strFirstName, String p_strLastName,String p_strEmail,String p_strPhoneNumber, String p_Address, String p_strPasswordHash) {
+        setId(p_iId);
+        setFirstName(p_strFirstName);
+        setLastName(p_strLastName);
+        setEmail(p_strEmail);
+        setPhoneNumber(p_strPhoneNumber);
+        setAddress(p_Address);
+        setPasswordHash(p_strPasswordHash);
+    }
+
     @Override
     public String toString() {
         return "Client{" +
                 "m_iId=" + getId() +
                 ", m_strFirstName='" + getFirstName() + '\'' +
                 ", m_strLastName='" + getLastName() + '\'' +
+                ", m_strEmail='" + getEmail() + '\'' +
+                ", m_strPhoneNumber='" + getPhoneNumber() + '\'' +
+                ", m_strAddress='" + getAddress() + '\'' +
+                ", m_strPasswordHash='" + getPasswordHash() + '\'' +
                 '}';
     }
 
@@ -110,5 +123,4 @@ public class Client implements iModel {
 
         return resp;
     }
-
 }
