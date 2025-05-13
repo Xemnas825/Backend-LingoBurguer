@@ -45,7 +45,7 @@ public class Client implements iModel {
     }
 
     public void setEmail(String _strEmail) {
-        m_strEmail = m_strEmail;
+        m_strEmail = _strEmail;
     }
 
     public String getPhoneNumber() {
