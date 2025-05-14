@@ -48,6 +48,12 @@ public class EstablishmentDao implements iDao{
                 if(establishment.getAddress() != null &&  establishment.getAddress() != ""){
                     sql += " AND address ='" + establishment.getAddress() + "'";
                 }
+                if(establishment.getTelephone() != null &&  establishment.getTelephone() != ""){
+                    sql += " AND telephone ='" + establishment.getTelephone() + "'";
+                }
+                if(establishment.getOpeningHours() != null &&  establishment.getOpeningHours() != ""){
+                    sql += " AND opening_hours ='" + establishment.getOpeningHours() + "'";
+                }
             }
 
             ResultSet rs = motorSql.executeQuery(sql);
@@ -55,7 +61,9 @@ public class EstablishmentDao implements iDao{
                 Establishment establishmentBd= new Establishment(
                         rs.getInt("establishment_id"),
                         rs.getString("name"),
-                        rs.getString("address"));
+                        rs.getString("address"),
+                        rs.getString("telephone"),
+                        rs.getString("opening_hours"));
                 establishments.add(establishmentBd);
             }
         }

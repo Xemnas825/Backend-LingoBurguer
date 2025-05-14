@@ -53,20 +53,23 @@ public class Establishment implements iModel{
         m_strOpeningHours = _strOpeningHours;
     }
 
-    public Establishment(int p_iId, String p_strName, String p_strAddress) {
-        setId(p_iId);
-        setName(p_strName);
-        setAddress(p_strAddress);
+
+    public Establishment(int m_iId, String m_strName, String m_strAddress, String m_strTelephone, String m_strOpeningHours) {
+        this.m_iId = m_iId;
+        this.m_strName = m_strName;
+        this.m_strAddress = m_strAddress;
+        this.m_strTelephone = m_strTelephone;
+        this.m_strOpeningHours = m_strOpeningHours;
     }
-
-
 
     @Override
     public String toString() {
         return "Establishment{" +
-                "m_iId=" + getId() +
-                ", m_strName='" + getName() + '\'' +
-                ", m_strAddress='" + getAddress() + '\'' +
+                "m_iId=" + m_iId +
+                ", m_strName='" + m_strName + '\'' +
+                ", m_strAddress='" + m_strAddress + '\'' +
+                ", m_strTelephone='" + m_strTelephone + '\'' +
+                ", m_strOpeningHours='" + m_strOpeningHours + '\'' +
                 '}';
     }
 
