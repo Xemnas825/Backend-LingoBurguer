@@ -28,7 +28,11 @@ public class Controller extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         //ACTION=PRODUCT.FIND_ALL
+
+        //request se forma con todos eso
         String action = request.getParameter("ACTION");
+        //String example = request.getParameter("DI");
+
         String[] arrayAction = new String[2];
         if (action != "")
         {
@@ -102,7 +106,6 @@ public class Controller extends HttpServlet {
                 throw new ServletException ("Acción " + action +" no valida");
             }
         }
-
         System.out.println(action);
     }
 
@@ -118,6 +121,8 @@ public class Controller extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
+
+
         processRequest(request, response);
     }
 
@@ -133,6 +138,7 @@ public class Controller extends HttpServlet {
     protected void doPost(  HttpServletRequest request,
                             HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
     }
 

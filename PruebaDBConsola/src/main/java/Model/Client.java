@@ -82,7 +82,6 @@ public class Client implements iModel {
     }
 
     public Client(int p_iId, String p_strFirstName, String p_strLastName,String p_strEmail,String p_strPhoneNumber, String p_Address, String p_strPasswordHash) {
-        setId(p_iId);
         setFirstName(p_strFirstName);
         setLastName(p_strLastName);
         setEmail(p_strEmail);
