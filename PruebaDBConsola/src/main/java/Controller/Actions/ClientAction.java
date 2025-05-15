@@ -1,5 +1,7 @@
 package Controller.Actions;
 
+import Model.Allergen;
+import Model.AllergenDao;
 import Model.Client;
 import Model.ClientDao;
 
@@ -33,12 +35,43 @@ public class ClientAction implements IAction {
         return Client.toArrayJSon(product);
     }
 
-    private void add(HttpServletRequest request, HttpServletResponse response) {
+    /*private void add(HttpServletRequest request, HttpServletResponse response) {
         ClientDao clientDao = new ClientDao();
         Client client = new Client(request.getParameter("first_name"),request.getParameter("last_name"),
                 request.getParameter("email"),request.getParameter("telephone"),
                 request.getParameter("password_hash"));
         clientDao.add(client);
-    }
+    }*/
 
+
+    private String add(HttpServletRequest request, HttpServletResponse response) {
+        String first_name = request.getParameter("first_name");
+        String last_name = request.getParameter("last_name");
+        String email = request.getParameter("email");
+        String telephone = request.getParameter("telephone");
+        String password_hash = request.getParameter("password_hash");
+
+
+        if (first_name != null && !first_name.isEmpty() && last_name != null && !last_name.isEmpty() &&
+                email != null && !email.isEmpty() && telephone != null && !telephone.isEmpty() &&
+                password_hash != null && !password_hash.isEmpty()) {
+            Client client = new Client(first_name, last_name,email,telephone,password_hash);
+            client.setFirstName(first_name);
+            client.setLastName(last_name);
+            client.setEmail(email);
+            client.setPhoneNumber(telephone);
+            client.setPasswordHash(password_hash);
+
+            ClientDao clientDao = new ClientDao();
+            int result = clientDao.add(client); // Llamamos a add()
+
+            if (result > 0) {
+                return "added client : " + email ;
+            } else {
+                return "No se pudo agregar el cliente";
+            }
+        } else {
+            return "Faltan datos";
+        }
+    }
 }
