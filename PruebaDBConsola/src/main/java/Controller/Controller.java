@@ -140,7 +140,7 @@ public class Controller extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(  HttpServletRequest request,
+    protected void doPost(HttpServletRequest request,
                             HttpServletResponse response)
             throws ServletException, IOException {
 
