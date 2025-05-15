@@ -14,6 +14,20 @@ public class AllergenAction implements IAction {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response, String action) {
+        if(action != null){
+            switch (action) {
+                case "FIND_ALL":
+                    return findAll(request, response);
+                case "ADD":
+                    add(request, response);
+                    break;
+                case "DELETE":
+                    delete(request,response);
+                    break;
+            }
+        }
+
+
         return findAll(request,response);
     }
 

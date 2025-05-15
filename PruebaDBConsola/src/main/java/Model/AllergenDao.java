@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class AllergenDao implements iDao{
 
     private final String SQL_FIND= "SELECT * from allergens WHERE 1=1 ";
-    private final String SQL_DELETE= "DELETE * from allergens WHERE ";
+    private final String SQL_DELETE= "DELETE FROM allergens WHERE allergen_id = ?";
     private final String SQL_INSERT= "INSERT INTO allergens (name, description) VALUES (?,?) ";
     private final String SQL_UPDATE= "UPDATE allergens SET name = ?, description = ? WHERE allergen_id = ? ";
 
@@ -62,21 +62,16 @@ public class AllergenDao implements iDao{
             idAllergen = ((Allergen)e).getId();
         }
 
-        String sql = SQL_DELETE;
+       String sql = SQL_DELETE;
 
         //si puedo asignar el idAllergen PROCEDO A BORRAR
         if(idAllergen>0)
         {
             try{
                 motorSql.connect();
-                sql += " allergen_id = ?";
                 PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
                 sentencia.setInt(1, idAllergen);
-                //Esto
-                motorSql.setPreparedStatement(sentencia);
-                motorSql.execute();
-                //O esto
-                //motorSql.execute(sentencia);
+                motorSql.execute(sentencia);
             }
             catch (SQLException ex)
             {
@@ -85,11 +80,9 @@ public class AllergenDao implements iDao{
             finally
             {
                 motorSql.disconnect();
+             }
         }
-        }
-
-
-        return 0;
+        return iRet;
     }
 
     @Override
