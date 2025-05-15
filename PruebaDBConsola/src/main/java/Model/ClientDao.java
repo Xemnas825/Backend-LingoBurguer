@@ -18,6 +18,8 @@ public class ClientDao implements iDao{
 
 
 
+
+
         return 0;
     }
 
@@ -55,9 +57,6 @@ public class ClientDao implements iDao{
                 }
                 if(client.getPhoneNumber() != null &&  client.getPhoneNumber() != ""){
                     sql += " AND telephone ='" + client.getPhoneNumber() + "'";
-                }
-                if(client.getAddress() != null &&  client.getAddress() != ""){
-                    sql += " AND address ='" + client.getAddress() + "'";
                 }
                 if(client.getPasswordHash() != null &&  client.getPasswordHash() != ""){
                     sql += " AND password_hash ='" + client.getPasswordHash() + "'";

@@ -12,7 +12,6 @@ public class Client implements iModel {
     private String m_strLastName;
     private String m_strEmail;
     private String m_strPhoneNumber;
-    private String m_strAddress;
     private String m_strPasswordHash;
 
 
@@ -54,10 +53,6 @@ public class Client implements iModel {
 
     public void setPhoneNumber(String _strPhoneNumber) {
         m_strPhoneNumber = _strPhoneNumber;
-    }
-
-    public String getAddress() {
-        return m_strAddress;
     }
 
     public String getPasswordHash() {

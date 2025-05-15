@@ -18,8 +18,8 @@ public class ClientAction implements IAction {
 
                case "FIND_ALL":
                    return findAll(request, response);
-               case "ADD_CLIENT":
-                   addClient(request, response);
+               case "ADD":
+                   add(request, response);
                    break;
            }
        }
@@ -33,7 +33,7 @@ public class ClientAction implements IAction {
         return Client.toArrayJSon(product);
     }
 
-    private void addClient(HttpServletRequest request, HttpServletResponse response) {
+    private void add(HttpServletRequest request, HttpServletResponse response) {
         ClientDao clientDao = new ClientDao();
         Client client = new Client(request.getParameter("first_name"),request.getParameter("last_name"),
                 request.getParameter("email"),request.getParameter("telephone"),

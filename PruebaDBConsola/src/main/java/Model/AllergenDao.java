@@ -24,7 +24,7 @@ public class AllergenDao implements iDao{
 
     @Override
     public int add(Object bean) {
-        this.e=e;
+        this.e=bean;
         Integer iRet = -1;
 
         if(e instanceof Allergen){
@@ -94,7 +94,7 @@ public class AllergenDao implements iDao{
 
     @Override
     public int update(Object bean) {
-        this.e = e;
+        this.e = bean;
         Integer iRet= -1;
         if (e instanceof Allergen) { // Verificamos que sea un objeto Allergen
             Allergen allergen = (Allergen) e; // Convertimos e a Allergen
