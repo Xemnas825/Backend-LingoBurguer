@@ -47,6 +47,11 @@ public class Allergen implements iModel {
         setDescription(p_strDescription);
     }
 
+    public Allergen(String m_strName, String m_strDescription) {
+        this.m_strName = m_strName;
+        this.m_strDescription = m_strDescription;
+    }
+
     @Override
     public String toString() {
         return "Allergen{" +
