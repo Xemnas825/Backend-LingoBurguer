@@ -13,13 +13,13 @@ public class AllergenDao implements iDao{
     private final String SQL_UPDATE= "UPDATE allergens SET name = ?, description = ? WHERE allergen_id = ? ";
 
 
+
     private iMotorSql motorSql;
     private Object e;
 
     public AllergenDao()
     {
         motorSql = new MotorSql();
-
     }
 
     @Override

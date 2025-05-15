@@ -11,9 +11,10 @@ public class Employee implements iModel {
     private String m_strFirstName;
     private String m_strLastName;
     private String m_strEmail;
-    private String m_strPhoneNumber;
-    private String m_strAddress;
+    private String m_strTelephone;
     private String m_strPasswordHash;
+    private int m_job_id1;
+    private int m_establishment_id1;
 
 
     public int getId() {
@@ -48,20 +49,12 @@ public class Employee implements iModel {
         m_strEmail = _strEmail;
     }
 
-    public String getPhoneNumber() {
-        return m_strPhoneNumber;
+    public String getTelephone() {
+        return m_strTelephone;
     }
 
-    public void setPhoneNumber(String _strPhoneNumber) {
-        m_strPhoneNumber = _strPhoneNumber;
-    }
-
-    public String getAddress() {
-        return m_strAddress;
-    }
-
-    public void setAddress(String _strAddress) {
-        m_strAddress = _strAddress;
+    public void setTelephone(String _strTelephone) {
+        m_strTelephone = _strTelephone;
     }
 
     public String getPasswordHash() {
@@ -72,20 +65,57 @@ public class Employee implements iModel {
         m_strPasswordHash = _strPasswordHash;
     }
 
+    public int getJobId() {
+        return m_job_id1;
+    }
+
+    public void setJobId(int _job_id1) {
+        m_job_id1 = _job_id1;
+    }
+
+    public int getEstablishmentId() {
+        return m_establishment_id1;
+    }
+
+    public void setEstablishmentId(int _establishment_id1) {
+        m_establishment_id1 = _establishment_id1;
+    }
+
     public Employee(int p_iId, String p_strFirstName, String p_strLastName) {
         setId(p_iId);
         setFirstName(p_strFirstName);
         setLastName(p_strLastName);
     }
 
-    public Employee(int p_iId, String p_strFirstName, String p_strLastName,
-                    String p_strEmail, String p_strPhoneNumber, String p_strAddress, String p_strPasswordHash) {
+    public Employee(String p_strFirstName, String p_strLastName,
+                    String p_strEmail, String p_strTelephone, String p_strPasswordHash) {
+        setFirstName(p_strFirstName);
+        setLastName(p_strLastName);
+        setEmail(p_strEmail);
+        setTelephone(p_strTelephone);
+        setPasswordHash(p_strPasswordHash);
+    }
+
+    public Employee(int p_iId,String p_strFirstName, String p_strLastName,
+                    String p_strEmail, String p_strTelephone, String p_strPasswordHash,
+                    int p_job_id1, int p_establishment_id1) {
         setId(p_iId);
         setFirstName(p_strFirstName);
         setLastName(p_strLastName);
         setEmail(p_strEmail);
-        setPhoneNumber(p_strPhoneNumber);
-        setAddress(p_strAddress);
+        setTelephone(p_strTelephone);
+        setPasswordHash(p_strPasswordHash);
+        setJobId(p_job_id1);
+        setEstablishmentId(p_establishment_id1);
+    }
+
+    public Employee(int p_iId, String p_strFirstName, String p_strLastName,
+                    String p_strEmail, String p_strTelephone, String p_strPasswordHash) {
+        setId(p_iId);
+        setFirstName(p_strFirstName);
+        setLastName(p_strLastName);
+        setEmail(p_strEmail);
+        setTelephone(p_strTelephone);
         setPasswordHash(p_strPasswordHash);
     }
 
@@ -96,8 +126,7 @@ public class Employee implements iModel {
                 ", m_strFirstName='" + getFirstName() + '\'' +
                 ", m_strLastName='" + getLastName() + '\'' +
                 ", m_strEmail='" + getEmail() + '\'' +
-                ", m_strPhoneNumber='" + getPhoneNumber() + '\'' +
-                ", m_strAddress='" + getAddress() + '\'' +
+                ", m_strTelephone='" + getTelephone() + '\'' +
                 ", m_strPasswordHash='" + getPasswordHash() + '\'' +
                 '}';
     }

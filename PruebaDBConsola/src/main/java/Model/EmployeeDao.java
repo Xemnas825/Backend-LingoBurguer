@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,15 +8,45 @@ import java.util.ArrayList;
 public class EmployeeDao implements iDao{
 
     private final String SQL_FIND= "SELECT * from employees WHERE 1=1 ";
+    private final String SQL_DELETE= "DELETE * from employees WHERE ";
+    private final String SQL_INSERT= "INSERT INTO employees (first_name, last_name, email, telephone, password_hash) VALUES (?,?,?,?,?) ";
+    private final String SQL_UPDATE= "UPDATE employees SET name = ?, description = ? WHERE employee_id = ? ";
+
+
     private iMotorSql motorSql;
     public EmployeeDao()
     {
         motorSql = new MotorSql();
     }
 
+    private Object e;
+
     @Override
     public int add(Object bean) {
-        return 0;
+        this.e=bean;
+        Integer iRet = -1;
+
+        if(e instanceof Employee){
+            Employee employee = (Employee) e;
+            String sql = SQL_INSERT;
+            try{
+                motorSql.connect();
+                PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
+                sentencia.setString(1, employee.getFirstName());
+                sentencia.setString(2, employee.getLastName());
+                sentencia.setString(3, employee.getEmail());
+                sentencia.setString(4, employee.getTelephone());
+                sentencia.setString(5, employee.getPasswordHash());
+
+                iRet = sentencia.executeUpdate();
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            } finally {
+                motorSql.disconnect();
+            }
+        }
+
+        return iRet;
     }
 
     @Override
@@ -50,11 +81,8 @@ public class EmployeeDao implements iDao{
                 if(employee.getEmail() != null &&  employee.getEmail() != ""){
                     sql += " AND email ='" + employee.getEmail() + "'";
                 }
-                if(employee.getPhoneNumber() != null &&  employee.getPhoneNumber() != ""){
-                    sql += " AND telephone ='" + employee.getPhoneNumber() + "'";
-                }
-                if(employee.getAddress() != null &&  employee.getAddress() != ""){
-                    sql += " AND address ='" + employee.getAddress() + "'";
+                if(employee.getTelephone() != null &&  employee.getTelephone() != ""){
+                    sql += " AND telephone ='" + employee.getTelephone() + "'";
                 }
                 if(employee.getPasswordHash() != null &&  employee.getPasswordHash() != ""){
                     sql += " AND password_hash ='" + employee.getPasswordHash() + "'";
@@ -69,7 +97,6 @@ public class EmployeeDao implements iDao{
                         rs.getString("last_name"),
                         rs.getString("email"),
                         rs.getString("telephone"),
-                        rs.getString("address"),
                         rs.getString("password_hash")
                 );
                 employees.add(employeeBd);
