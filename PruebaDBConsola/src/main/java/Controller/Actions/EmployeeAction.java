@@ -15,7 +15,6 @@ public class EmployeeAction implements IAction {
         return findAll(request,response);
     }
 
-
     private String findAll(HttpServletRequest request,
                            HttpServletResponse response) {
 

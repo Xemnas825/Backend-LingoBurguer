@@ -11,11 +11,13 @@ public class ClientDao implements iDao{
     public ClientDao()
     {
         motorSql = new MotorSql();
-
     }
 
     @Override
     public int add(Object bean) {
+
+
+
         return 0;
     }
 
@@ -70,7 +72,6 @@ public class ClientDao implements iDao{
                         rs.getString("last_name"),
                         rs.getString("email"),
                         rs.getString("telephone"),
-                        rs.getString("address"),
                         rs.getString("password_hash"));
                 clients.add(clientBd);
             }

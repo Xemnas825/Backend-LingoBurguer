@@ -1,8 +1,5 @@
 package Controller.Actions;
 
-
-import Model.Category;
-import Model.CategoryDao;
 import Model.Client;
 import Model.ClientDao;
 
@@ -16,14 +13,16 @@ public class ClientAction implements IAction {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response, String action) {
 
-       /* switch (action) {
+       if(action != null){
+           switch (action) {
 
-            case "FIND_ALL":
-                return findAll(request, response);
-                break;
-                //Pitos
-        } */
-
+               case "FIND_ALL":
+                   return findAll(request, response);
+               case "ADD_CLIENT":
+                   addClient(request, response);
+                   break;
+           }
+       }
         return findAll(request, response);
     }
 
@@ -34,7 +33,12 @@ public class ClientAction implements IAction {
         return Client.toArrayJSon(product);
     }
 
-
-
+    private void addClient(HttpServletRequest request, HttpServletResponse response) {
+        ClientDao clientDao = new ClientDao();
+        Client client = new Client(request.getParameter("first_name"),request.getParameter("last_name"),
+                request.getParameter("email"),request.getParameter("telephone"),
+                request.getParameter("password_hash"));
+        clientDao.add(client);
+    }
 
 }

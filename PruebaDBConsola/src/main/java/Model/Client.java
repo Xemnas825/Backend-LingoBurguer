@@ -60,10 +60,6 @@ public class Client implements iModel {
         return m_strAddress;
     }
 
-    public void setAddress(String _strAddress) {
-        m_strAddress = _strAddress;
-    }
-
     public String getPasswordHash() {
         return m_strPasswordHash;
     }
@@ -81,12 +77,19 @@ public class Client implements iModel {
         setLastName(p_strLastName);
     }
 
-    public Client(int p_iId, String p_strFirstName, String p_strLastName,String p_strEmail,String p_strPhoneNumber, String p_Address, String p_strPasswordHash) {
+    public Client(String p_strFirstName, String p_strLastName,String p_strEmail,String p_strPhoneNumber, String p_strPasswordHash) {
         setFirstName(p_strFirstName);
         setLastName(p_strLastName);
         setEmail(p_strEmail);
         setPhoneNumber(p_strPhoneNumber);
-        setAddress(p_Address);
+        setPasswordHash(p_strPasswordHash);
+    }
+
+    public Client(int p_iId, String p_strFirstName, String p_strLastName,String p_strEmail,String p_strPhoneNumber, String p_strPasswordHash) {
+        setFirstName(p_strFirstName);
+        setLastName(p_strLastName);
+        setEmail(p_strEmail);
+        setPhoneNumber(p_strPhoneNumber);
         setPasswordHash(p_strPasswordHash);
     }
 
@@ -98,7 +101,6 @@ public class Client implements iModel {
                 ", m_strLastName='" + getLastName() + '\'' +
                 ", m_strEmail='" + getEmail() + '\'' +
                 ", m_strPhoneNumber='" + getPhoneNumber() + '\'' +
-                ", m_strAddress='" + getAddress() + '\'' +
                 ", m_strPasswordHash='" + getPasswordHash() + '\'' +
                 '}';
     }

@@ -41,64 +41,70 @@ public class Controller extends HttpServlet {
         {
             case "ALLERGEN":
             {
-                out.print(new AllergenAction().execute(request,response, arrayAction[1]));
+                out.print(new AllergenAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
             case "CANDIDATE":
             {
-                out.print(new CandidateAction().execute(request,response, arrayAction[1]));
+                out.print(new CandidateAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
             case "CATEGORY":
             {
-                out.print(new CategoryAction().execute(request,response, arrayAction[1]));
+                out.print(new CategoryAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
             case "CLIENT":
             {
-                out.print(new ClientAction().execute(request,response, arrayAction[1]));
+                out.print(new ClientAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
             case "EMPLOYEE":
             {
-                out.print(new EmployeeAction().execute(request,response, arrayAction[1]));
+                out.print(new EmployeeAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
             case "ESTABLISHMENT":
             {
-                out.print(new EstablishmentAction().execute(request,response, arrayAction[1]));
+                out.print(new EstablishmentAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
             case "JOB":
             {
-                out.print(new JobAction().execute(request,response, arrayAction[1]));
+                out.print(new JobAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
             case "JOBOFFER":
             {
-                out.print(new JobOfferAction().execute(request,response, arrayAction[1]));
+                out.print(new JobOfferAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
             case "ORDER":
             {
-                out.print(new OrderAction().execute(request,response, arrayAction[1]));
+                out.print(new OrderAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
             case "ORDERDETAIL":
             {
-                out.print(new OrderDetailAction().execute(request,response, arrayAction[1]));
+                out.print(new OrderDetailAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
             case "PAYMENTMETHOD":
             {
-                out.print(new PaymentMethodAction().execute(request,response, arrayAction[1]));
+                out.print(new PaymentMethodAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
             case "PRODUCT":
             {
-                out.print(new ProductAction().execute(request,response, arrayAction[1]));
+                out.print(new ProductAction().execute(request,response, arrayAction[1].toUpperCase()));
                 break;
             }
+            case "USER":
+            {
+                out.print(new UserAction().execute(request,response, arrayAction[1].toUpperCase()));
+                break;
+            }
+
             default:
             {
                 System.out.println(action);
