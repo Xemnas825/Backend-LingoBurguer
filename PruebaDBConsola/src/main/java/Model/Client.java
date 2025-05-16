@@ -66,11 +66,6 @@ public class Client implements iModel {
     //todo variable de "created at" de formato DATE
 
     //Preguntar si en el constructor deberiamos declarar un ID siendo que en la base de datos se autoincrementa
-    public Client(int p_iId, String p_strFirstName, String p_strLastName) {
-        setId(p_iId);
-        setFirstName(p_strFirstName);
-        setLastName(p_strLastName);
-    }
 
     public Client(String p_strFirstName, String p_strLastName,String p_strEmail,String p_strTelephone, String p_strPasswordHash) {
         setFirstName(p_strFirstName);
@@ -92,12 +87,12 @@ public class Client implements iModel {
     @Override
     public String toString() {
         return "Client{" +
-                "m_iId=" + m_iId +
-                ", m_strFirstName='" + m_strFirstName + '\'' +
-                ", m_strLastName='" + m_strLastName + '\'' +
-                ", m_strEmail='" + m_strEmail + '\'' +
-                ", m_strTelephone='" + m_strTelephone + '\'' +
-                ", m_strPasswordHash='" + m_strPasswordHash + '\'' +
+                "m_iId=" + getId() +
+                ", m_strFirstName='" + getFirstName() + '\'' +
+                ", m_strLastName='" + getLastName() + '\'' +
+                ", m_strEmail='" + getEmail() + '\'' +
+                ", m_strTelephone='" + getTelephone() + '\'' +
+                ", m_strPasswordHash='" + getPasswordHash() + '\'' +
                 '}';
     }
 

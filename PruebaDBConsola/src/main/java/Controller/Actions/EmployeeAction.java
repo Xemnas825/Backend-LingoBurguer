@@ -51,6 +51,8 @@ public class EmployeeAction implements IAction {
         String password_hash = request.getParameter("password_hash");
         String hire_date_str = request.getParameter("hire_date");
         String salary_str = request.getParameter("salary");
+        String jobIdStr = request.getParameter("job_id1"); // Nueva clave foránea
+        String establishmentIdStr = request.getParameter("establishment_id1"); // Nueva clave foránea
 
 
         if (first_name != null && !first_name.isEmpty() &&
@@ -58,13 +60,16 @@ public class EmployeeAction implements IAction {
                 email != null && !email.isEmpty() &&
                 password_hash != null && !password_hash.isEmpty() &&
                 hire_date_str != null && !hire_date_str.isEmpty() &&
-                salary_str != null && !salary_str.isEmpty()) {
+                salary_str != null && !salary_str.isEmpty() &&  jobIdStr != null && !jobIdStr.isEmpty() &&
+                establishmentIdStr != null && !establishmentIdStr.isEmpty()) {
 
             try {
-                Date hire_date = Date.valueOf(hire_date_str);
-                BigDecimal salary = new BigDecimal(salary_str);
+                int jobId = Integer.parseInt(jobIdStr);
+                int establishmentId = Integer.parseInt(establishmentIdStr);
+                Date hire_date = Date.valueOf(hire_date_str); // 🔹 Convertir la fecha
+                double salary = Double.parseDouble(salary_str);
 
-                Employee employee = new Employee(first_name, last_name, email, telephone, password_hash);
+                Employee employee = new Employee(first_name, last_name, email, telephone, password_hash, hire_date, salary, jobId, establishmentId);
                 EmployeeDao employeeDao = new EmployeeDao();
                 int result = employeeDao.add(employee);
 
@@ -82,36 +87,39 @@ public class EmployeeAction implements IAction {
     }
 
     private String update(HttpServletRequest request, HttpServletResponse response) {
-            String firstName = request.getParameter("first_name");
-            String lastName = request.getParameter("last_name");
-            String email = request.getParameter("email");
-            String telephone = request.getParameter("telephone");
-            String passwordHash = request.getParameter("password_hash");
+        String first_name = request.getParameter("first_name");
+        String last_name = request.getParameter("last_name");
+        String email = request.getParameter("email");
+        String telephone = request.getParameter("telephone");
+        String password_hash = request.getParameter("password_hash");
+        String hire_date_str = request.getParameter("hire_date");
+        String salary_str = request.getParameter("salary");
+        String jobIdStr = request.getParameter("job_id1"); // Nueva clave foránea
+        String establishmentIdStr = request.getParameter("establishment_id1"); // Nueva clave foránea
 
-            if (firstName != null && !firstName.isEmpty() &&
-                    lastName != null && !lastName.isEmpty() &&
-                    email != null && !email.isEmpty() &&
-                    telephone != null && !telephone.isEmpty() &&
-                    passwordHash != null && !passwordHash.isEmpty()) {
+        if (first_name != null && !first_name.isEmpty() &&
+                last_name != null && !last_name.isEmpty() &&
+                email != null && !email.isEmpty() &&
+                password_hash != null && !password_hash.isEmpty() &&
+                hire_date_str != null && !hire_date_str.isEmpty() &&
+                salary_str != null && !salary_str.isEmpty() && jobIdStr != null && !jobIdStr.isEmpty() &&
+                establishmentIdStr != null && !establishmentIdStr.isEmpty()) {
 
-                EmployeeDao employeeDao = new EmployeeDao();
-                int id = employeeDao.getIdByEmail(email); // Buscar ID por email
+            EmployeeDao employeeDao = new EmployeeDao();
+            int id = employeeDao.getIdByEmail(email); // Buscar ID por email
+            if (id > 0) { // Si encontramos el ID, actualizamos
+                try {
+                    Date hire_date = hire_date_str != null && !hire_date_str.isEmpty() ? Date.valueOf(hire_date_str) : null;
+                    int jobId = jobIdStr != null && !jobIdStr.isEmpty() ? Integer.parseInt(jobIdStr) : 0;
+                    int establishmentId = establishmentIdStr != null && !establishmentIdStr.isEmpty() ? Integer.parseInt(establishmentIdStr) : 0;
+                    double salary = Double.parseDouble(salary_str);
 
-                if (id > 0) { // Si encontramos el ID, actualizamos
-                    Employee employee = new Employee(id, firstName, lastName, email, telephone, passwordHash);
-                    employee.setId(id);
-                    employee.setFirstName(firstName);
-                    employee.setLastName(lastName);
-                    employee.setEmail(email);
-                    employee.setTelephone(telephone);
-                    employee.setPasswordHash(passwordHash);
-
+                    Employee employee = new Employee(id, first_name, last_name, email, telephone, password_hash, hire_date, salary, jobId, establishmentId);
                     int result = employeeDao.update(employee);
+                    return result > 0 ? "updatedEmployee: " + first_name + " " + last_name : "No se pudo actualizar el empleado";
 
-                if (result > 0) {
-                    return "updatedEmployee" + firstName + " " + lastName ;
-                } else {
-                    return "No se pudo actualizar el empleado";
+                } catch (IllegalArgumentException e) {
+                    return "Error en formato de IDs o fecha de contratación";
                 }
             } else {
                 return "Empleado no encontrado";
