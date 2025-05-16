@@ -12,7 +12,7 @@ public class Order implements iModel {
 
     private int m_iId;
     private Date m_DateOrder;
-    protected enum TypeOrder {online, physical};
+    public enum TypeOrder {online, physical};
     public enum Status {local, online, take_away};
     private TypeOrder m_eTypeorder;
     private Status m_eStatus;
