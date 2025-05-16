@@ -113,6 +113,8 @@ public class OrderDao implements iDao {
                         rs.getInt("payment_method_id1"),
                         new ArrayList<OrderDetail>() // Los detalles se buscarán en otro método
                 );
+
+                loadOrderDetails(orderBd);
                 orders.add(orderBd);
             }
         } catch (SQLException sqlEx) {
@@ -123,5 +125,15 @@ public class OrderDao implements iDao {
 
         return orders;
     }
+
+    private void loadOrderDetails(Order order) {
+        OrderDetailDao orderDetailDao = new OrderDetailDao();
+        OrderDetail filtro = new OrderDetail(0, 0, "", 0,  0);
+        filtro.setFkOrderId(order.getId()); // Filtrar por el pedido
+
+        ArrayList<OrderDetail> detalles = orderDetailDao.findAll(filtro);
+        order.setOrderDetails(detalles); // Asignamos los detalles al pedido
+    }
+
 
 }

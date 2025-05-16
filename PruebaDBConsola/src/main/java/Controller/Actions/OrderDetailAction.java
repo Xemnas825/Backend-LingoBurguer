@@ -10,6 +10,15 @@ import java.util.ArrayList;
 public class OrderDetailAction implements IAction{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response, String action) {
+        if (action != null) {
+            switch (action) {
+                case "FIND_ALL":
+                    return findAll(request, response);
+                case "ADD":
+                    add(request, response);
+                    break;
+            }
+        }
         return findAll(request,response);
     }
 
@@ -21,7 +30,7 @@ public class OrderDetailAction implements IAction{
         return OrderDetail.toArrayJSon(orderDetail);
     }
 
-    private String add(HttpServletRequest request) {
+    private String add(HttpServletRequest request, HttpServletResponse response) {
         String quantityReq = request.getParameter("quantity");
         String unitPriceReq = request.getParameter("unit_price");
         String notesReq = request.getParameter("notes");
