@@ -1,12 +1,16 @@
 package Model;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class OrderDetailDao implements iDao {
 
     private final String SQL_FIND= "SELECT * from order_details WHERE 1=1 ";
+    private final String SQL_INSERT = "INSERT INTO order_details (quantity, unit_price, notes, order_id1, product_id2) VALUES (?, ?, ?, ?, ?)";
+
     private iMotorSql motorSql;
     public OrderDetailDao()
     {
@@ -16,8 +20,35 @@ public class OrderDetailDao implements iDao {
 
     @Override
     public int add(Object bean) {
-        return 0;
+        int result = -1;
+        OrderDetail orderDetail = (OrderDetail) bean;
+        String sql = SQL_INSERT;
+
+            try {
+                motorSql.connect();
+                PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                sentencia.setInt(1, orderDetail.getQuantity());
+                sentencia.setDouble(2, orderDetail.getUnitPrice());
+                sentencia.setString(3, orderDetail.getNotes());
+                sentencia.setInt(4, orderDetail.getFkOrderId());
+                sentencia.setInt(5, orderDetail.getFkProductId());
+
+                int affectedRows = sentencia.executeUpdate();
+                if (affectedRows > 0) {
+                    ResultSet generatedKeys = sentencia.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        result = generatedKeys.getInt(1);
+                    }
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error SQL en `add()`: " + ex.getMessage());
+            } finally {
+                motorSql.disconnect();
+            }
+        return result;
     }
+
+
 
     @Override
     public int delete(Object e) {
@@ -30,7 +61,7 @@ public class OrderDetailDao implements iDao {
     }
 
     @Override
-    public ArrayList findAll(Object bean) {
+    public ArrayList<OrderDetail> findAll(Object bean) {
 
         ArrayList<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
         String sql= SQL_FIND;
@@ -45,27 +76,35 @@ public class OrderDetailDao implements iDao {
                     sql += " AND detail_id ='" + orderDetail.getId() + "'";
                 }
                 if(orderDetail.getQuantity() >= 0){
-                    sql += " AND detail_id ='" + orderDetail.getQuantity() + "'";
-                }
-                if(orderDetail.getQuantity() >= 0){
                     sql += " AND quantity ='" + orderDetail.getQuantity() + "'";
                 }
-                if(orderDetail.getDescription() != null &&  orderDetail.getDescription() != ""){
-                    sql += " AND description ='" + orderDetail.getDescription() + "'";
+                if(orderDetail.getUnitPrice() >= 0){
+                    sql += " AND unit_price ='" + orderDetail.getUnitPrice() + "'";
+                }
+                if(orderDetail.getNotes() != null &&  orderDetail.getNotes() != ""){
+                    sql += " AND notes ='" + orderDetail.getNotes() + "'";
+                }
+                if (orderDetail.getFkOrderId() > 0) {
+                    sql += " AND order_id1 = " + orderDetail.getFkOrderId();
+                }
+                if (orderDetail.getFkProductId() > 0) {
+                    sql += " AND product_id2 = " + orderDetail.getFkProductId();
                 }
             }
 
             ResultSet rs = motorSql.executeQuery(sql);
-            while(rs.next()){
-                OrderDetail orderDetailBd= new OrderDetail(
+            while (rs.next()) {
+
+
+                OrderDetail detailBd = new OrderDetail(
                         rs.getInt("detail_id"),
                         rs.getInt("quantity"),
                         rs.getDouble("unit_price"),
                         rs.getString("notes"),
                         rs.getInt("order_id1"),
-                        rs.getInt("product_id2")
-                        );
-                orderDetails.add(orderDetailBd);
+                        rs.getInt("product_id2"));
+
+                orderDetails.add(detailBd);
             }
         }
         catch (SQLException sqlEx)

@@ -11,15 +11,15 @@ public class OrderDetail implements iModel{
     private int m_iQuantity;
     private double m_dblUnitPrice;
     private String m_strNotes;
-    private String m_strDescription;
     private int m_fkOrderId;
     private int m_fkProductId;
 
+    private Order order;
+    private Product product;
 
     public int getId() {
         return m_iId;
     }
-
     public void setId(int m_iId) {
         this.m_iId = m_iId;
     }
@@ -27,7 +27,6 @@ public class OrderDetail implements iModel{
     public int getQuantity() {
         return m_iQuantity;
     }
-
     public void setQuantity(int m_iQuantity) {
         this.m_iQuantity = m_iQuantity;
     }
@@ -35,7 +34,6 @@ public class OrderDetail implements iModel{
     public double getUnitPrice() {
         return m_dblUnitPrice;
     }
-
     public void setUnitPrice(double m_dblUnitPrice) {
         this.m_dblUnitPrice = m_dblUnitPrice;
     }
@@ -43,58 +41,62 @@ public class OrderDetail implements iModel{
     public String getNotes() {
         return m_strNotes;
     }
-
     public void setNotes(String m_strNotes) {
         this.m_strNotes = m_strNotes;
     }
 
-    public String getDescription() {
-        return m_strDescription;
+    public int getFkOrderId() { return m_fkOrderId; }
+    public void setFkOrderId(int _fkOrderId) { this.m_fkOrderId = _fkOrderId; }
+
+    public int getFkProductId() { return m_fkProductId; }
+    public void setFkProductId(int _fkProductId) { this.m_fkProductId = _fkProductId; }
+
+    // 🔹 Métodos para asignar objetos y actualizar la FK automáticamente
+    public Order getOrder() { return order;}
+    public void setOrder(Order order) {
+        this.order = order;
+        if (order != null) {
+            setFkOrderId(order.getId()); // Actualiza la FK también
+        }
     }
 
-    public void setDescription(String m_strDescription) {
-        this.m_strDescription = m_strDescription;
+    public Product getProduct() { return product; }
+    public void setProduct(Product product) {
+        this.product = product;
+        if (product != null) {
+            setFkProductId(product.getId()); // Actualiza la FK también
+        }
     }
 
-    public int getOrderId() {
-        return m_fkOrderId;
+    public OrderDetail(int id, int quantity, double unitPrice, String notes, int order, int product) {
+        setId(id);
+        setQuantity(quantity);
+        setUnitPrice(unitPrice);
+        setNotes(notes);
+        setFkOrderId(order);
+        setFkProductId(product);
     }
 
-    public void setOrderId(int _fkOrderId) {
-        m_fkOrderId = _fkOrderId;
-    }
-
-    public int getProductId() {
-        return m_fkProductId;
-    }
-
-    public void setProductId(int _iProductId) {
-        m_fkProductId = _iProductId;
-    }
-
-    public OrderDetail(int p_iId) {
-        setId(p_iId);
-    }
-
-    public OrderDetail(int p_iId, int p_iQuantity, double p_dblUnitPrice, String p_strNotes, /*String p_strDescription,*/int p_fkOrder, int p_fkProductId) {
-        setId(p_iId);
-        setQuantity(p_iQuantity);
-        setUnitPrice(p_dblUnitPrice);
-        setNotes(p_strNotes);
-        // setDescription(p_strDescription); *No contamos con description en la base de datos*
-        setOrderId(p_fkOrder);
-        setProductId(p_fkProductId);
+    // 🔹 Constructor cuando se crea un nuevo detalle
+    public OrderDetail(int quantity, double unitPrice, String notes, int order, int product) {
+        setQuantity(quantity);
+        setUnitPrice(unitPrice);
+        setNotes(notes);
+        setFkOrderId(order);
+        setFkProductId(product);
     }
 
     @Override
     public String toString() {
-        return "OrderDetail{" +
-                "m_iId=" + m_iId +
-                ", m_iQuantity=" + m_iQuantity +
-                ", m_dblUnitPrice=" + m_dblUnitPrice +
-                ", m_strNotes='" + m_strNotes + '\'' +
-                ", m_strDescription='" + m_strDescription + '\'' +
-                '}';
+        return "OrderDetail{ ID=" + getId() +
+                ", Quantity=" + getQuantity() +
+                ", Unit Price=" + getUnitPrice() + "€" +
+                ", Notes='" + getNotes() + '\'' +
+                ", fkOrderId=" + getFkOrderId() +
+                ", fkProductId=" + getFkProductId() +
+                (order != null ? ", Order=" + order.getId() : "") +
+                (product != null ? ", Product=" + product.getName() : "") +
+                " }";
     }
 
     @Override

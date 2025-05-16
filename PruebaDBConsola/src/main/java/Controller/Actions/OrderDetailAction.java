@@ -20,4 +20,35 @@ public class OrderDetailAction implements IAction{
         ArrayList<OrderDetail> orderDetail = orderDetailDao.findAll(null);
         return OrderDetail.toArrayJSon(orderDetail);
     }
+
+    private String add(HttpServletRequest request) {
+        String quantityReq = request.getParameter("quantity");
+        String unitPriceReq = request.getParameter("unit_price");
+        String notesReq = request.getParameter("notes");
+        String fkOrderIdReq = request.getParameter("order_id1");
+        String fkProductIdReq = request.getParameter("product_id2");
+
+        // Verificación de datos
+        if (quantityReq != null && !quantityReq.isEmpty() &&
+                unitPriceReq != null && !unitPriceReq.isEmpty() &&
+                fkOrderIdReq != null && !fkOrderIdReq.isEmpty() &&
+                fkProductIdReq != null && !fkProductIdReq.isEmpty()) {
+
+            int quantity = Integer.parseInt(quantityReq);
+            double unitPrice = Double.parseDouble(unitPriceReq);
+            int fkOrderId = Integer.parseInt(fkOrderIdReq);
+            int fkProductId = Integer.parseInt(fkProductIdReq);
+
+            OrderDetailDao orderDetailDao = new OrderDetailDao();
+            int result = orderDetailDao.add(orderDetailDao);
+
+            if (result > 0) {
+                return "addedOrderDetailID" + result;
+            } else {
+                return "No se pudo agregar el detalle del pedido";
+            }
+        } else {
+            return "Faltan datos";
+        }
+    }
 }

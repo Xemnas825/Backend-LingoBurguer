@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class OrderDao implements iDao {
 
     private final String SQL_FIND= "SELECT * from orders WHERE 1=1 ";
-    private final String SQL_INSERT = "INSERT INTO orders (date_order, type_order, status, total_price, fk_establishment, fk_employee, fk_client, fk_payment_method) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String SQL_INSERT = "INSERT INTO orders (date_order, type_order, status, total_price, establishment_id2, employee_id1, client_id1, payment_method_id1) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private iMotorSql motorSql;
 
     public OrderDao()
@@ -24,6 +24,7 @@ public class OrderDao implements iDao {
         Order order = (Order) bean;
         int orderId = -1;
         String sql = SQL_INSERT;
+
         try {
             motorSql.connect();
             PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -48,7 +49,7 @@ public class OrderDao implements iDao {
             if (orderId > 0) {
                 OrderDetailDao orderDetailDao = new OrderDetailDao();
                 for (OrderDetail detail : order.getOrderDetails()) {
-                    detail.setOrderId(orderId);
+                    detail.setFkOrderId(orderId);
                     orderDetailDao.add(detail);
                 }
             }
@@ -94,7 +95,7 @@ public class OrderDao implements iDao {
                     sql += " AND status = '" + order.getStatus().name() + "'";
                 }
                 if (order.getFkClient() > 0) {
-                    sql += " AND fk_client = " + order.getFkClient();
+                    sql += " AND client_id1 = " + order.getFkClient();
                 }
             }
 
@@ -106,10 +107,10 @@ public class OrderDao implements iDao {
                         Order.TypeOrder.valueOf(rs.getString("type_order")),
                         Order.Status.valueOf(rs.getString("status")),
                         rs.getDouble("total_price"),
-                        rs.getInt("fk_establishment"),
-                        rs.getInt("fk_employee"),
-                        rs.getInt("fk_client"),
-                        rs.getInt("fk_payment_method"),
+                        rs.getInt("establishment_id2"),
+                        rs.getInt("employee_id1"),
+                        rs.getInt("client_id1"),
+                        rs.getInt("payment_method_id1"),
                         new ArrayList<OrderDetail>() // Los detalles se buscarán en otro método
                 );
                 orders.add(orderBd);
