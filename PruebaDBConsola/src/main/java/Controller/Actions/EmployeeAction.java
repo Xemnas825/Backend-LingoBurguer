@@ -18,11 +18,16 @@ public class EmployeeAction implements IAction {
     public String execute(HttpServletRequest request, HttpServletResponse response, String action) {
         if(action != null){
             switch (action) {
-
                 case "FIND_ALL":
                     return findAll(request, response);
                 case "ADD":
                     add(request, response);
+                    break;
+                case "DELETE":
+                    delete(request,response);
+                    break;
+                case "UPDATE":
+                    update(request,response);
                     break;
             }
         }
@@ -75,5 +80,71 @@ public class EmployeeAction implements IAction {
             return "Faltan datos";
         }
     }
+
+    private String update(HttpServletRequest request, HttpServletResponse response) {
+            String firstName = request.getParameter("first_name");
+            String lastName = request.getParameter("last_name");
+            String email = request.getParameter("email");
+            String telephone = request.getParameter("telephone");
+            String passwordHash = request.getParameter("password_hash");
+
+            if (firstName != null && !firstName.isEmpty() &&
+                    lastName != null && !lastName.isEmpty() &&
+                    email != null && !email.isEmpty() &&
+                    telephone != null && !telephone.isEmpty() &&
+                    passwordHash != null && !passwordHash.isEmpty()) {
+
+                EmployeeDao employeeDao = new EmployeeDao();
+                int id = employeeDao.getIdByEmail(email); // Buscar ID por email
+
+                if (id > 0) { // Si encontramos el ID, actualizamos
+                    Employee employee = new Employee(id, firstName, lastName, email, telephone, passwordHash);
+                    employee.setId(id);
+                    employee.setFirstName(firstName);
+                    employee.setLastName(lastName);
+                    employee.setEmail(email);
+                    employee.setTelephone(telephone);
+                    employee.setPasswordHash(passwordHash);
+
+                    int result = employeeDao.update(employee);
+
+                if (result > 0) {
+                    return "updatedEmployee" + firstName + " " + lastName ;
+                } else {
+                    return "No se pudo actualizar el empleado";
+                }
+            } else {
+                return "Empleado no encontrado";
+            }
+        } else {
+            return "Faltan datos";
+        }
+    }
+
+    private String delete(HttpServletRequest request, HttpServletResponse response) {
+        String email = request.getParameter("email"); // Obtener el email desde la petición
+
+        if (email != null && !email.isEmpty()) {
+            EmployeeDao employeeDao = new EmployeeDao();
+            int id = employeeDao.getIdByEmail(email); // Buscar el ID en la BD
+
+            if (id > 0) { // Si encontramos el ID, eliminamos
+                int result = employeeDao.delete(id); // delete() devuelve un INT
+
+                if (result > 0) {
+                    return "deletedId" + id ;
+                } else {
+                    return "No se pudo eliminar el empleado";
+                }
+            } else {
+                return "Empleado no encontrado";
+            }
+        } else {
+            return "Email no proporcionado";
+        }
+    }
+
+
+
 
 }

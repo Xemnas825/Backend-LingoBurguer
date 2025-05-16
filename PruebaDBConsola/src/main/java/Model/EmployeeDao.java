@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class EmployeeDao implements iDao{
 
     private final String SQL_FIND= "SELECT * from employees WHERE 1=1 ";
-    private final String SQL_DELETE= "DELETE * from employees WHERE ";
+    private final String SQL_DELETE= "DELETE FROM employees WHERE employee_id = ?";
     private final String SQL_INSERT= "INSERT INTO employees (first_name, last_name, email, telephone, password_hash) VALUES (?,?,?,?,?) ";
     private final String SQL_UPDATE= "UPDATE employees SET name = ?, description = ? WHERE employee_id = ? ";
 
@@ -51,13 +51,72 @@ public class EmployeeDao implements iDao{
 
     @Override
     public int delete(Object e) {
-        return 0;
+        this.e = e;
+        //Comprobar tipo de objeto (o E o I) para asignarlo al ID del elemento idAllergen
+        Integer idEmployee = -1;
+        Integer iRet = -1;
+
+        if(e instanceof Integer)
+        {
+            idEmployee = (Integer)e;
+        }
+        else if (e instanceof Employee)
+        {
+            idEmployee = ((Employee)e).getId();
+        }
+
+        String sql = SQL_DELETE;
+
+        //si puedo asignar el idEmployee PROCEDO A BORRAR
+        if(idEmployee>0)
+        {
+            try{
+                motorSql.connect();
+                PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
+                sentencia.setInt(1, idEmployee);
+                motorSql.execute(sentencia);
+            }
+            catch (SQLException ex)
+            {
+                System.out.println(ex);
+            }
+            finally
+            {
+                motorSql.disconnect();
+            }
+        }
+        return iRet;
     }
 
     @Override
     public int update(Object bean) {
-        return 0;
-    }
+            this.e = bean;
+            Integer iRet = -1;
+
+            if (e instanceof Employee) { // Verificamos que sea un objeto Employee
+                Employee employee = (Employee) e; // Convertimos e a Employee
+                String sql =  SQL_UPDATE;
+
+                try {
+                    motorSql.connect(); // Conectamos a la BD
+                    PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
+                    sentencia.setString(1, employee.getFirstName());
+                    sentencia.setString(2, employee.getLastName());
+                    sentencia.setString(3, employee.getEmail());
+                    sentencia.setString(4, employee.getTelephone());
+                    sentencia.setString(5, employee.getPasswordHash());
+                    sentencia.setInt(6, employee.getId()); // ID en la condición WHERE
+
+                    iRet = sentencia.executeUpdate(); // Ejecutamos la actualización
+                } catch (SQLException ex) {
+                    System.out.println("Error SQL: " + ex.getMessage());
+                } finally {
+                    motorSql.disconnect(); // Cerramos conexión
+                }
+            }
+
+            return iRet;
+        }
 
     @Override
     public ArrayList findAll(Object bean) {
@@ -109,4 +168,27 @@ public class EmployeeDao implements iDao{
 
         return employees;
     }
+
+    public int getIdByEmail(String email) {
+        int id = -1;
+        String sql = "SELECT employee_id FROM employees WHERE email = ?";
+
+        try {
+            motorSql.connect();
+            PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
+            sentencia.setString(1, email);
+            ResultSet rs = sentencia.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getInt("employee_id"); // Obtiene el ID si el empleado existe
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL: " + ex.getMessage());
+        } finally {
+            motorSql.disconnect();
+        }
+
+        return id; // Si no se encuentra, devuelve -1
+    }
+
 }

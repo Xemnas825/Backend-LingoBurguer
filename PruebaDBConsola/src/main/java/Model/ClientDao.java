@@ -1,37 +1,87 @@
 package Model;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 public class ClientDao implements iDao{
 
-    private final String SQL_FIND= "SELECT * from clients WHERE 1=1 ";
-    private iMotorSql motorSql;
-    public ClientDao()
-    {
-        motorSql = new MotorSql();
-    }
-
-    @Override
-    public int add(Object bean) {
+        private final String SQL_FIND= "SELECT * from clients WHERE 1=1 ";
+        private final String SQL_INSERT= "INSERT INTO  clients (first_name, last_name, email, telephone, password_hash) VALUES (?,?,?,?,?)";
+        private final String SQL_UPDATE= "UPDATE clients set first_name = ?, last_name = ?, email = ?, telephone = ?, password_hash = ? WHERE client_id = ?  ";
 
 
+        private iMotorSql motorSql;
+        private Object e;
+
+        public ClientDao()
+        {
+            motorSql = new MotorSql();
+        }
+
+        @Override
+        public int add(Object bean) {
+            this.e = bean;
+            Integer iRet = -1;
+
+            if (e instanceof Client) {
+                Client client = (Client) e;
+                String sql = SQL_INSERT;
+                try {
+                    motorSql.connect();
+                    PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
+                    sentencia.setString(1, client.getFirstName());
+                    sentencia.setString(2, client.getLastName());
+                    sentencia.setString(3,client.getEmail());
+                    sentencia.setString(4,client.getTelephone());
+                    sentencia.setString(5,client.getPasswordHash());
+                    iRet = sentencia.executeUpdate();
+                } catch (SQLException ex) {
+                    System.out.println(ex);
+                } finally {
+                    motorSql.disconnect();
+                }
+            }
+
+            return iRet;
+        }
 
 
+        @Override
+        public int delete(Object e) {
+            return 0;
+        }
 
-        return 0;
-    }
+        @Override
+        public int update(Object bean) {
+            this.e = bean;
+            Integer iRet= -1;
+            if (e instanceof Client) { // Verificamos que sea un objeto Allergen
+                Client client = (Client) e; // Convertimos e a Allergen
+                String sql = SQL_UPDATE;
 
-    @Override
-    public int delete(Object e) {
-        return 0;
-    }
+                try {
+                    motorSql.connect(); // Conectamos a la BD
+                    PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
+                    sentencia.setString(1, client.getFirstName());
+                    sentencia.setString(2, client.getLastName());
+                    sentencia.setString(3, client.getEmail());
+                    sentencia.setString(4, client.getTelephone());
+                    sentencia.setString(5, client.getPasswordHash());
+                    sentencia.setInt(6, client.getId());
 
-    @Override
-    public int update(Object bean) {
-        return 0;
-    }
+                    iRet = sentencia.executeUpdate(); // Ejecutamos la actualización
+                } catch (SQLException ex) {
+                    System.out.println(ex);
+                } finally {
+                    motorSql.disconnect(); // Cerramos conexión
+                }
+            }
+            return iRet;
+        }
+
 
     @Override
     public ArrayList findAll(Object bean) {
@@ -55,8 +105,8 @@ public class ClientDao implements iDao{
                 if(client.getEmail() != null &&  client.getEmail() != ""){
                     sql += " AND email ='" + client.getEmail() + "'";
                 }
-                if(client.getPhoneNumber() != null &&  client.getPhoneNumber() != ""){
-                    sql += " AND telephone ='" + client.getPhoneNumber() + "'";
+                if(client.getTelephone() != null &&  client.getTelephone() != ""){
+                    sql += " AND telephone ='" + client.getTelephone() + "'";
                 }
                 if(client.getPasswordHash() != null &&  client.getPasswordHash() != ""){
                     sql += " AND password_hash ='" + client.getPasswordHash() + "'";
@@ -83,4 +133,27 @@ public class ClientDao implements iDao{
         return clients;
     }
 
+    public int getIdByName(String first_name) {
+        int id = -1;
+        String sql = "SELECT client_id FROM client WHERE first_name = ?";
+
+        try {
+            motorSql.connect();
+            PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
+            sentencia.setString(1, first_name);
+            ResultSet rs = sentencia.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getInt("client_id");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            motorSql.disconnect();
+        }
+
+        return id; // Si no se encuentra, devuelve -1
+    }
 }
+
+

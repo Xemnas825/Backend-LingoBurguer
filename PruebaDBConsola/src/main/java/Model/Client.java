@@ -11,7 +11,7 @@ public class Client implements iModel {
     private String m_strFirstName;
     private String m_strLastName;
     private String m_strEmail;
-    private String m_strPhoneNumber;
+    private String m_strTelephone;
     private String m_strPasswordHash;
 
 
@@ -47,12 +47,12 @@ public class Client implements iModel {
         m_strEmail = _strEmail;
     }
 
-    public String getPhoneNumber() {
-        return m_strPhoneNumber;
+    public String getTelephone() {
+        return m_strTelephone;
     }
 
-    public void setPhoneNumber(String _strPhoneNumber) {
-        m_strPhoneNumber = _strPhoneNumber;
+    public void setTelephone(String _strTelephone) {
+        this.m_strTelephone = _strTelephone;
     }
 
     public String getPasswordHash() {
@@ -72,31 +72,32 @@ public class Client implements iModel {
         setLastName(p_strLastName);
     }
 
-    public Client(String p_strFirstName, String p_strLastName,String p_strEmail,String p_strPhoneNumber, String p_strPasswordHash) {
+    public Client(String p_strFirstName, String p_strLastName,String p_strEmail,String p_strTelephone, String p_strPasswordHash) {
         setFirstName(p_strFirstName);
         setLastName(p_strLastName);
         setEmail(p_strEmail);
-        setPhoneNumber(p_strPhoneNumber);
+        setTelephone(p_strTelephone);
         setPasswordHash(p_strPasswordHash);
     }
 
-    public Client(int p_iId, String p_strFirstName, String p_strLastName,String p_strEmail,String p_strPhoneNumber, String p_strPasswordHash) {
+    public Client(int p_iId, String p_strFirstName, String p_strLastName,String p_strEmail,String p_strTelephone, String p_strPasswordHash) {
+        setId(p_iId);
         setFirstName(p_strFirstName);
         setLastName(p_strLastName);
         setEmail(p_strEmail);
-        setPhoneNumber(p_strPhoneNumber);
+        setTelephone(p_strTelephone);
         setPasswordHash(p_strPasswordHash);
     }
 
     @Override
     public String toString() {
         return "Client{" +
-                "m_iId=" + getId() +
-                ", m_strFirstName='" + getFirstName() + '\'' +
-                ", m_strLastName='" + getLastName() + '\'' +
-                ", m_strEmail='" + getEmail() + '\'' +
-                ", m_strPhoneNumber='" + getPhoneNumber() + '\'' +
-                ", m_strPasswordHash='" + getPasswordHash() + '\'' +
+                "m_iId=" + m_iId +
+                ", m_strFirstName='" + m_strFirstName + '\'' +
+                ", m_strLastName='" + m_strLastName + '\'' +
+                ", m_strEmail='" + m_strEmail + '\'' +
+                ", m_strTelephone='" + m_strTelephone + '\'' +
+                ", m_strPasswordHash='" + m_strPasswordHash + '\'' +
                 '}';
     }
 

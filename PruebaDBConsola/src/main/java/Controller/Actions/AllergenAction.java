@@ -24,6 +24,9 @@ public class AllergenAction implements IAction {
                 case "DELETE":
                     delete(request,response);
                     break;
+                case "UPDATE":
+                    update(request,response);
+                    break;
             }
         }
 
