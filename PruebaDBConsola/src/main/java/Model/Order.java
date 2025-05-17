@@ -163,8 +163,9 @@ public class Order implements iModel {
         setFkEmployee(p_fkEmployee);
         setFkClient(p_fkClient);
         setFkPaymentMethod(p_fkPaymentMethod);
-        m_arrayOrderDetails = new ArrayList<>();
+        setOrderDetails(orderDetails);
     }
+
 
 
 

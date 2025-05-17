@@ -77,16 +77,30 @@ public class Product implements iModel {
         m_iCategory = _iCategory;
     }
 
+    // Constructor simple
     public Product(int p_iProductId, String p_strName, String p_strDescription) {
         setId(p_iProductId);
         setName(p_strName);
         setDescription(p_strDescription);
     }
 
+    // Constructor completo con ID (para actualizar)
     public Product(int p_iProductId, String p_strName, String p_strDescription,
                    double p_dblPrice, boolean p_bAvailable, String p_strImageURL, int p_iCategory)
     {
         setId(p_iProductId);
+        setName(p_strName);
+        setDescription(p_strDescription);
+        setPrice(p_dblPrice);
+        setAvailable(p_bAvailable);
+        setImageURL(p_strImageURL);
+        setCategory(p_iCategory);
+    }
+
+    // Constructor completo sin ID (para añadir)
+    public Product(String p_strName, String p_strDescription,
+                   double p_dblPrice, boolean p_bAvailable, String p_strImageURL, int p_iCategory)
+    {
         setName(p_strName);
         setDescription(p_strDescription);
         setPrice(p_dblPrice);

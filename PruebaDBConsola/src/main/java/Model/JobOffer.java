@@ -4,8 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
-import java.util.Date;import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import java.util.Date;
 
 public class JobOffer implements iModel {
 
@@ -18,10 +17,12 @@ public class JobOffer implements iModel {
     private boolean m_bStatus;
     private Date m_dPublicationDate;
     private Date m_dEndDate;
+    private String m_strJournal;
     private String m_strExperienceRequired;
     private String m_strEducationRequired;
+    private int m_iEstablishmentId;
 
-
+    // Getters y setters
     public int getID() {
         return m_iID;
     }
@@ -86,6 +87,14 @@ public class JobOffer implements iModel {
         m_dEndDate = _dEndDate;
     }
 
+    public String getJournal() {
+        return m_strJournal;
+    }
+
+    public void setJournal(String _strJournal) {
+        m_strJournal = _strJournal;
+    }
+
     public String getExperienceRequired() {
         return m_strExperienceRequired;
     }
@@ -102,58 +111,76 @@ public class JobOffer implements iModel {
         m_strEducationRequired = _strEducationRequired;
     }
 
+    public int getEstablishmentId() {
+        return m_iEstablishmentId;
+    }
+
+    public void setEstablishmentId(int _iEstablishmentId) {
+        m_iEstablishmentId = _iEstablishmentId;
+    }
+
+    // Constructores
+    public JobOffer() {
+    }
+
     public JobOffer(int p_iID, String p_strTitle, String p_strDescription) {
         setID(p_iID);
         setTitle(p_strTitle);
         setDescription(p_strDescription);
     }
 
-    public JobOffer(int p_iID, String p_strTitle, String p_strDescription, double p_dblMinSalary, double p_dblMaxSalary, boolean p_bStatus, Date p_strPublicationDate, Date p_strEndDate, String p_strExperienceRequired, String p_strEducationRequired) {
+    public JobOffer(int p_iID, String p_strTitle, String p_strDescription, double p_dblMinSalary,
+                    double p_dblMaxSalary, boolean p_bStatus, Date p_dPublicationDate,
+                    Date p_dEndDate, String p_strJournal, String p_strExperienceRequired,
+                    String p_strEducationRequired, int p_iEstablishmentId) {
+
         setID(p_iID);
         setTitle(p_strTitle);
         setDescription(p_strDescription);
         setMinSalary(p_dblMinSalary);
         setMaxSalary(p_dblMaxSalary);
         setStatus(p_bStatus);
-        setPublicationDate(p_strPublicationDate);
-        setEndDate(p_strEndDate);
+        setPublicationDate(p_dPublicationDate);
+        setEndDate(p_dEndDate);
+        setJournal(p_strJournal);
         setExperienceRequired(p_strExperienceRequired);
         setEducationRequired(p_strEducationRequired);
+        setEstablishmentId(p_iEstablishmentId);
     }
 
-    @Override
-    public String toString() {
-        return "Job_offers{" +
-                "m_iId=" + (getID()) +
-                ", m_strTitle='" + (getTitle()) + '\'' +
-                ", m_strDescription='" + getDescription() + '\'' +
-                ", m_dblMinSalary='" + getMinSalary() + '\'' +
-                ", m_dblMaxSalary='" + getMaxSalary() + '\'' +
-                ", m_bStatus='" + isStatus() + '\'' +
-                ", m_dPublicationDate='" + getPublicationDate() + '\'' +
-                ", m_dEndDate='" + getEndDate() + '\'' +
-                ", m_strExperienceRequired='" + getExperienceRequired() + '\'' +
-                ", m_strEducationRequired='" + getEducationRequired() + '\'' +
-                '}';
+    // Métodos JSON
+    public static String toArrayJSon(ArrayList<JobOffer> jobOffer) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        return gson.toJson(jobOffer);
     }
 
     @Override
     public String fromArrayToJson(ArrayList bean) {
-        return null;
+        return toArrayJSon(bean);
     }
 
     @Override
     public String toArrayJson(ArrayList bean) {
-        return null;
+        return toArrayJSon(bean);
     }
 
-    public static String toArrayJSon(ArrayList<JobOffer> jobOffer) {
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-
-        Gson gson = builder.create();
-        String resp = gson.toJson(jobOffer);
-
-        return resp;
+    @Override
+    public String toString() {
+        return "JobOffer{" +
+                "ID=" + getID() +
+                ", Title='" + getTitle() + '\'' +
+                ", Description='" + getDescription() + '\'' +
+                ", MinSalary=" + getMinSalary() +
+                ", MaxSalary=" + getMaxSalary() +
+                ", Status=" + isStatus() +
+                ", PublicationDate=" + getPublicationDate() +
+                ", EndDate=" + getEndDate() +
+                ", Journal='" + getJournal() + '\'' +
+                ", ExperienceRequired='" + getExperienceRequired() + '\'' +
+                ", EducationRequired='" + getEducationRequired() + '\'' +
+                ", EstablishmentId=" + getEstablishmentId() +
+                '}';
     }
 }

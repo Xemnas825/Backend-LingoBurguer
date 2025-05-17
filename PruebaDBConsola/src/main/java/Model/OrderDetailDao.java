@@ -52,12 +52,46 @@ public class OrderDetailDao implements iDao {
 
     @Override
     public int delete(Object e) {
-        return 0;
+        int result = 0;
+        OrderDetail orderDetail = (OrderDetail) e;
+        String sql = "DELETE FROM order_details WHERE detail_id = " + orderDetail.getId();
+
+        try {
+            motorSql.connect();
+            result = motorSql.execute(sql);
+        } finally {
+            motorSql.disconnect();
+        }
+
+        return result;
     }
 
     @Override
     public int update(Object bean) {
-        return 0;
+        int result = 0;
+        OrderDetail orderDetail = (OrderDetail) bean;
+
+        String sql = "UPDATE order_details SET quantity = ?, unit_price = ?, notes = ?, order_id1 = ?, product_id2 = ? WHERE detail_id = ?";
+
+        try {
+            motorSql.connect();
+            PreparedStatement stmt = motorSql.getConnection().prepareStatement(sql);
+            stmt.setInt(1, orderDetail.getQuantity());
+            stmt.setDouble(2, orderDetail.getUnitPrice());
+            stmt.setString(3, orderDetail.getNotes());
+            stmt.setInt(4, orderDetail.getFkOrderId());
+            stmt.setInt(5, orderDetail.getFkProductId());
+            stmt.setInt(6, orderDetail.getId());
+
+            result = stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("Error SQL en `update()`: " + ex.getMessage());
+        } finally {
+            motorSql.disconnect();
+        }
+
+        return result;
     }
 
     @Override

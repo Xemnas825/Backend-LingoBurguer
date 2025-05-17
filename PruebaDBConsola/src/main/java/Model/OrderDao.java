@@ -1,23 +1,17 @@
 package Model;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class OrderDao implements iDao {
 
-    private final String SQL_FIND= "SELECT * from orders WHERE 1=1 ";
+    private final String SQL_FIND = "SELECT * FROM orders WHERE 1=1 ";
     private final String SQL_INSERT = "INSERT INTO orders (date_order, type_order, status, total_price, establishment_id2, employee_id1, client_id1, payment_method_id1) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private iMotorSql motorSql;
 
-    public OrderDao()
-    {
+    public OrderDao() {
         motorSql = new MotorSql();
-
     }
-
 
     @Override
     public int add(Object bean) {
@@ -32,10 +26,12 @@ public class OrderDao implements iDao {
             sentencia.setString(2, order.getTypeOrder().name());
             sentencia.setString(3, order.getStatus().name());
             sentencia.setDouble(4, order.getTotalPrice());
-            sentencia.setInt(5, order.getFkEstablishment());
-            sentencia.setInt(6, order.getFkEmployee());
-            sentencia.setInt(7, order.getFkClient());
-            sentencia.setInt(8, order.getFkPaymentMethod());
+
+            // Claves foráneas (pueden ser nulas)
+            setNullableInt(sentencia, 5, order.getFkEstablishment());
+            setNullableInt(sentencia, 6, order.getFkEmployee());
+            setNullableInt(sentencia, 7, order.getFkClient());
+            setNullableInt(sentencia, 8, order.getFkPaymentMethod());
 
             int affectedRows = sentencia.executeUpdate();
             if (affectedRows > 0) {
@@ -45,7 +41,7 @@ public class OrderDao implements iDao {
                 }
             }
 
-            // Guardar detalles del pedido si la orden se insertó correctamente
+            // Insertar detalles si se creó la orden
             if (orderId > 0) {
                 OrderDetailDao orderDetailDao = new OrderDetailDao();
                 for (OrderDetail detail : order.getOrderDetails()) {
@@ -55,7 +51,7 @@ public class OrderDao implements iDao {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Error SQL: " + ex.getMessage());
+            System.out.println("Error SQL en `add()`: " + ex.getMessage());
         } finally {
             motorSql.disconnect();
         }
@@ -63,15 +59,71 @@ public class OrderDao implements iDao {
         return orderId;
     }
 
-
     @Override
     public int delete(Object e) {
-        return 0;
+        int result = 0;
+        Order order = (Order) e;
+
+        try {
+            motorSql.connect();
+
+            // Eliminar detalles primero (si aplica)
+            OrderDetailDao detailDao = new OrderDetailDao();
+            OrderDetail filtro = new OrderDetail(0, 0, "", 0, 0);
+            filtro.setFkOrderId(order.getId());
+            ArrayList<OrderDetail> detalles = detailDao.findAll(filtro);
+            for (OrderDetail detail : detalles) {
+                detailDao.delete(detail);
+            }
+
+            // Luego eliminar la orden
+            String sql = "DELETE FROM orders WHERE order_id = ?";
+            PreparedStatement stmt = motorSql.getConnection().prepareStatement(sql);
+            stmt.setInt(1, order.getId());
+
+            result = stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error SQL en `delete()`: " + ex.getMessage());
+        } finally {
+            motorSql.disconnect();
+        }
+
+        return result;
     }
 
     @Override
     public int update(Object bean) {
-        return 0;
+        int result = 0;
+        Order order = (Order) bean;
+
+        String sql = "UPDATE orders SET " +
+                "date_order = ?, type_order = ?, status = ?, total_price = ?, " +
+                "establishment_id2 = ?, employee_id1 = ?, client_id1 = ?, payment_method_id1 = ? " +
+                "WHERE order_id = ?";
+
+        try {
+            motorSql.connect();
+            PreparedStatement stmt = motorSql.getConnection().prepareStatement(sql);
+            stmt.setDate(1, new java.sql.Date(order.getDateOrder().getTime()));
+            stmt.setString(2, order.getTypeOrder().name());
+            stmt.setString(3, order.getStatus().name());
+            stmt.setDouble(4, order.getTotalPrice());
+
+            setNullableInt(stmt, 5, order.getFkEstablishment());
+            setNullableInt(stmt, 6, order.getFkEmployee());
+            setNullableInt(stmt, 7, order.getFkClient());
+            setNullableInt(stmt, 8, order.getFkPaymentMethod());
+
+            stmt.setInt(9, order.getId());
+
+            result = stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error SQL en `update()`: " + ex.getMessage());
+        } finally {
+            motorSql.disconnect();
+        }
+
+        return result;
     }
 
     @Override
@@ -111,14 +163,14 @@ public class OrderDao implements iDao {
                         rs.getInt("employee_id1"),
                         rs.getInt("client_id1"),
                         rs.getInt("payment_method_id1"),
-                        new ArrayList<OrderDetail>() // Los detalles se buscarán en otro método
+                        new ArrayList<OrderDetail>()
                 );
 
                 loadOrderDetails(orderBd);
                 orders.add(orderBd);
             }
         } catch (SQLException sqlEx) {
-            System.out.println("Error SQL: " + sqlEx.getMessage());
+            System.out.println("Error SQL en `findAll()`: " + sqlEx.getMessage());
         } finally {
             motorSql.disconnect();
         }
@@ -128,12 +180,18 @@ public class OrderDao implements iDao {
 
     private void loadOrderDetails(Order order) {
         OrderDetailDao orderDetailDao = new OrderDetailDao();
-        OrderDetail filtro = new OrderDetail(0, 0, "", 0,  0);
-        filtro.setFkOrderId(order.getId()); // Filtrar por el pedido
+        OrderDetail filtro = new OrderDetail(0, 0, "", 0, 0);
+        filtro.setFkOrderId(order.getId());
 
         ArrayList<OrderDetail> detalles = orderDetailDao.findAll(filtro);
-        order.setOrderDetails(detalles); // Asignamos los detalles al pedido
+        order.setOrderDetails(detalles);
     }
 
-
+    private void setNullableInt(PreparedStatement stmt, int index, int value) throws SQLException {
+        if (value > 0) {
+            stmt.setInt(index, value);
+        } else {
+            stmt.setNull(index, Types.INTEGER);
+        }
+    }
 }
