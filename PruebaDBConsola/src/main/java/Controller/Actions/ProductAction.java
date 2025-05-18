@@ -33,19 +33,21 @@ public class ProductAction implements IAction {
     }
 
     private String add(HttpServletRequest request, HttpServletResponse response) {
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String priceStr = request.getParameter("price");
-        String availableStr = request.getParameter("available");
-        String image = request.getParameter("image");
-        String categoryIdStr = request.getParameter("category_id1");
+        String name = request.getParameter("product_name");
+        String description = request.getParameter("product_description");
+        String priceStr = request.getParameter("product_price");
+        String availableStr = request.getParameter("product_available");
+        String image = request.getParameter("product_image");
+        String categoryIdStr = request.getParameter("product_category");
 
-        if (name != null && !name.isEmpty() &&
-                description != null && !description.isEmpty() &&
-                priceStr != null && !priceStr.isEmpty() &&
-                availableStr != null && !availableStr.isEmpty() &&
-                categoryIdStr != null && !categoryIdStr.isEmpty()) {
+        System.out.println("name: " + name);
+        System.out.println("description: " + description);
+        System.out.println("priceStr: " + priceStr);
+        System.out.println("availableStr: " + availableStr);
+        System.out.println("image: " + image);
+        System.out.println("categoryIdStr: " + categoryIdStr);
 
+        if (name != null && description != null && priceStr != null && availableStr != null && categoryIdStr != null) {
             try {
                 double price = Double.parseDouble(priceStr);
                 boolean available = Boolean.parseBoolean(availableStr);
@@ -57,9 +59,20 @@ public class ProductAction implements IAction {
 
                 return result > 0 ? "Producto agregado: " + name : "No se pudo agregar el producto";
             } catch (NumberFormatException e) {
-                return "Error en el formato numérico del precio o categoría";
+                System.out.println("Error de formato numérico: " + e.getMessage());
+                return "Error en el formato numérico";
+            } catch (Exception e) {
+                System.out.println("Error general: " + e.getMessage());
+                return "Error al procesar la solicitud";
             }
         } else {
+            System.out.println("Faltan datos del producto:");
+            System.out.println("name is null: " + (name == null));
+            System.out.println("description is null: " + (description == null));
+            System.out.println("priceStr is null: " + (priceStr == null));
+            System.out.println("availableStr is null: " + (availableStr == null));
+            System.out.println("image is null: " + (image == null));
+            System.out.println("categoryIdStr is null: " + (categoryIdStr == null));
             return "Faltan datos del producto";
         }
     }
