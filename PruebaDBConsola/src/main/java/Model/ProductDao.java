@@ -18,14 +18,16 @@ public class ProductDao implements iDao {
     public ProductDao() {
         motorSql = new MotorSql();
     }
+    private Object e;
 
     @Override
     public int add(Object bean) {
         Product product = (Product) bean;
         int productId = -1;
+        String sql = SQL_INSERT;
         try {
             motorSql.connect();
-            PreparedStatement sentencia = motorSql.getConnection().prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             sentencia.setString(1, product.getName());
             sentencia.setString(2, product.getDescription());
             sentencia.setDouble(3, product.getPrice());
@@ -50,33 +52,38 @@ public class ProductDao implements iDao {
 
     @Override
     public int update(Object bean) {
-        Product product = (Product) bean;
-        int result = 0;
-        try {
-            motorSql.connect();
-            PreparedStatement sentencia = motorSql.getConnection().prepareStatement(SQL_UPDATE);
-            sentencia.setString(1, product.getName());
-            sentencia.setString(2, product.getDescription());
-            sentencia.setDouble(3, product.getPrice());
-            sentencia.setBoolean(4, product.getAvailable());
-            sentencia.setString(5, product.getImageURL());
-            sentencia.setInt(6, product.getCategory());
-            sentencia.setInt(7, product.getId());
+        this.e = bean;
+        Integer iRet = -1;
+        if (e instanceof Product) { // Verificamos que sea un objeto Product
+            Product product = (Product) e; // Convertimos e a Product
+            String sql = SQL_UPDATE;
+            try {
+                motorSql.connect();
+                PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
+                sentencia.setString(1, product.getName());
+                sentencia.setString(2, product.getDescription());
+                sentencia.setDouble(3, product.getPrice());
+                sentencia.setBoolean(4, product.getAvailable());
+                sentencia.setString(5, product.getImageURL());
+                sentencia.setInt(6, product.getCategory());
+                sentencia.setInt(7, product.getId()); // Se mantiene la PK en la condición WHERE
 
-            result = sentencia.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("ProductDao:update:ERROR: " + ex.getMessage());
-        } finally {
-            motorSql.disconnect();
+                iRet = sentencia.executeUpdate(); // Retorna número de filas afectadas
+            } catch (SQLException ex) {
+                System.out.println("Error SQL en `update()`: " + ex.getMessage());
+            } finally {
+                motorSql.disconnect();
+            }
         }
-        return result;
+        return iRet;
     }
+
 
     @Override
     public int delete(Object bean) {
         int result = 0;
         int productId = -1;
-
+        String sql = SQL_DELETE;
         if (bean instanceof Integer) {
             productId = (Integer) bean;
         } else if (bean instanceof Product) {
@@ -86,7 +93,7 @@ public class ProductDao implements iDao {
         if (productId > 0) {
             try {
                 motorSql.connect();
-                PreparedStatement sentencia = motorSql.getConnection().prepareStatement(SQL_DELETE);
+                PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
                 sentencia.setInt(1, productId);
                 result = sentencia.executeUpdate();
             } catch (SQLException ex) {
@@ -143,5 +150,27 @@ public class ProductDao implements iDao {
         }
 
         return products;
+    }
+
+    public int getIdByName(String name) {
+        int id = -1;
+        String sql = "SELECT product_id FROM products WHERE name = ?";
+
+        try {
+            motorSql.connect();
+            PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql);
+            sentencia.setString(1, name);
+            ResultSet rs = sentencia.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getInt("product_id"); // Obtiene el ID si el empleado existe
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL: " + ex.getMessage());
+        } finally {
+            motorSql.disconnect();
+        }
+
+        return id; // Si no se encuentra, devuelve -1
     }
 }

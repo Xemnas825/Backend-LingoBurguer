@@ -105,8 +105,9 @@ public class EmployeeAction implements IAction {
                 salary_str != null && !salary_str.isEmpty() && jobIdStr != null && !jobIdStr.isEmpty() &&
                 establishmentIdStr != null && !establishmentIdStr.isEmpty()) {
 
-            EmployeeDao employeeDao = new EmployeeDao();
-            int id = employeeDao.getIdByEmail(email); // Buscar ID por email
+                EmployeeDao employeeDao = new EmployeeDao();
+                int id = employeeDao.getIdByEmail(email); // Buscar ID por email
+
             if (id > 0) { // Si encontramos el ID, actualizamos
                 try {
                     Date hire_date = hire_date_str != null && !hire_date_str.isEmpty() ? Date.valueOf(hire_date_str) : null;

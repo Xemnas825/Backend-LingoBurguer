@@ -14,7 +14,7 @@ public class Product implements iModel {
     private double m_dblPrice;
     private boolean m_bAvailable;
     private String m_strImageURL;
-    private int m_iCategory;
+    private int m_fkCategory;
 
 
 
@@ -70,12 +70,14 @@ public class Product implements iModel {
     }
 
     public int getCategory() {
-        return m_iCategory;
+        return m_fkCategory;
     }
 
     public void setCategory(int _iCategory) {
-        m_iCategory = _iCategory;
+        m_fkCategory = _iCategory;
     }
+
+
 
     // Constructor simple
     public Product(int p_iProductId, String p_strName, String p_strDescription) {
@@ -112,9 +114,13 @@ public class Product implements iModel {
     @Override
     public String toString() {
         return "Product{" +
-                "m_iId=" + getId() +
-                ", m_strName='" + getName() + '\'' +
-                ", m_strDescription='" + getDescription() + '\'' +
+                "m_iId=" + m_iId +
+                ", m_strName='" + m_strName + '\'' +
+                ", m_strDescription='" + m_strDescription + '\'' +
+                ", m_dblPrice=" + m_dblPrice +
+                ", m_bAvailable=" + m_bAvailable +
+                ", m_strImageURL='" + m_strImageURL + '\'' +
+                ", m_fkCategory=" + m_fkCategory +
                 '}';
     }
 
