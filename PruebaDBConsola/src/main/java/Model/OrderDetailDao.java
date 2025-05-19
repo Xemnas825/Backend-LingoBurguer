@@ -52,18 +52,7 @@ public class OrderDetailDao implements iDao {
 
     @Override
     public int delete(Object e) {
-        int result = 0;
-        OrderDetail orderDetail = (OrderDetail) e;
-        String sql = "DELETE FROM order_details WHERE detail_id = " + orderDetail.getId();
-
-        try {
-            motorSql.connect();
-            result = motorSql.execute(sql);
-        } finally {
-            motorSql.disconnect();
-        }
-
-        return result;
+        return 0;
     }
 
     @Override

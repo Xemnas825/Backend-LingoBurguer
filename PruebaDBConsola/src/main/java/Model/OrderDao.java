@@ -69,7 +69,7 @@ public class OrderDao implements iDao {
 
             // Eliminar detalles primero (si aplica)
             OrderDetailDao detailDao = new OrderDetailDao();
-            OrderDetail filtro = new OrderDetail(0, 0, "", 0, 0);
+            OrderDetail filtro = new OrderDetail(0, 0, "");
             filtro.setFkOrderId(order.getId());
             ArrayList<OrderDetail> detalles = detailDao.findAll(filtro);
             for (OrderDetail detail : detalles) {
@@ -180,7 +180,7 @@ public class OrderDao implements iDao {
 
     private void loadOrderDetails(Order order) {
         OrderDetailDao orderDetailDao = new OrderDetailDao();
-        OrderDetail filtro = new OrderDetail(0, 0, "", 0, 0);
+        OrderDetail filtro = new OrderDetail(0, 0, "");
         filtro.setFkOrderId(order.getId());
 
         ArrayList<OrderDetail> detalles = orderDetailDao.findAll(filtro);

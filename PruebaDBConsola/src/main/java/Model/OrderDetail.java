@@ -78,12 +78,11 @@ public class OrderDetail implements iModel{
     }
 
     // 🔹 Constructor cuando se crea un nuevo detalle
-    public OrderDetail(int quantity, double unitPrice, String notes, int order, int product) {
+    public OrderDetail(int quantity, double unitPrice, String notes) {
         setQuantity(quantity);
         setUnitPrice(unitPrice);
         setNotes(notes);
-        setFkOrderId(order);
-        setFkProductId(product);
+
     }
 
     @Override

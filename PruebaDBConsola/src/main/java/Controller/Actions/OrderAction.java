@@ -53,19 +53,12 @@ public class OrderAction implements IAction {
             Order.TypeOrder typeOrder = Order.TypeOrder.valueOf(typeOrderReq);
             Order.Status status = Order.Status.valueOf(statusReq);
             double totalPrice = Double.parseDouble(totalPriceReq);
-            int fkEstablishment = Integer.parseInt(fkEstablishmentReq);
+            /*int fkEstablishment = Integer.parseInt(fkEstablishmentReq);
             int fkEmployee = Integer.parseInt(fkEmployeeReq);
             int fkClient = Integer.parseInt(fkClientReq);
-            int fkPaymentMethod = Integer.parseInt(fkPaymentMethodReq);
+            int fkPaymentMethod = Integer.parseInt(fkPaymentMethodReq);*/
 
             Order order = new Order(new Date(), typeOrder, status, totalPrice);
-            order.setTypeOrder(typeOrder);
-            order.setStatus(status);
-            order.setTotalPrice(totalPrice);
-            order.setFkEstablishment(fkEstablishment);
-            order.setFkEmployee(fkEmployee);
-            order.setFkClient(fkClient);
-            order.setFkPaymentMethod(fkPaymentMethod);
 
             OrderDao orderDao = new OrderDao();
             int result = orderDao.add(order);

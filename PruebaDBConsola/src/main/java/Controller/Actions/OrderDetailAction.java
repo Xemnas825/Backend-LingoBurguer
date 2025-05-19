@@ -48,6 +48,7 @@ public class OrderDetailAction implements IAction{
             int fkOrderId = Integer.parseInt(fkOrderIdReq);
             int fkProductId = Integer.parseInt(fkProductIdReq);
 
+            OrderDetail orderDetail = new OrderDetail(quantity, unitPrice, notesReq);
             OrderDetailDao orderDetailDao = new OrderDetailDao();
             int result = orderDetailDao.add(orderDetailDao);
 

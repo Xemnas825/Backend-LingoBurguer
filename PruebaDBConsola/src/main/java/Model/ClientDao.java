@@ -135,7 +135,7 @@ public class ClientDao implements iDao{
 
     public int getIdByName(String first_name) {
         int id = -1;
-        String sql = "SELECT client_id FROM client WHERE first_name = ?";
+        String sql = "SELECT client_id FROM clients WHERE first_name = ?";
 
         try {
             motorSql.connect();
