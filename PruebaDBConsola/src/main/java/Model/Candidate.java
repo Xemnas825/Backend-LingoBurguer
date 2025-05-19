@@ -142,6 +142,7 @@ public class Candidate implements iModel {
                 ", m_strApplication_date='" + getApplication_date() + '\'' +
                 ", m_strNotes='" + getNotes() + '\'' +
                 ", m_strAvailability='" + getAvailability() + '\'' +
+
                 ", m_fkJobOffer='" + getJobOffer() + '\'' +
                 '}';
     }

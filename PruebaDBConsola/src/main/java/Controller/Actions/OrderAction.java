@@ -78,31 +78,29 @@ public class OrderAction implements IAction {
 
 
     private String add(HttpServletRequest request, HttpServletResponse response) {
-        String typeOrderReq = request.getParameter("type_order");
         String statusReq = request.getParameter("status");
         String totalPriceReq = request.getParameter("total_price");
         String fkEstablishmentReq = request.getParameter("establishment_id2");
-        String fkEmployeeReq = request.getParameter("employee_id1");
         String fkClientReq = request.getParameter("client_id1");
         String fkPaymentMethodReq = request.getParameter("payment_method_id1");
 
-        if (typeOrderReq != null && !typeOrderReq.isEmpty() &&
-                statusReq != null && !statusReq.isEmpty() &&
+        if (statusReq != null && !statusReq.isEmpty() &&
                 totalPriceReq != null && !totalPriceReq.isEmpty() &&
                 fkEstablishmentReq != null && !fkEstablishmentReq.isEmpty() &&
-                fkEmployeeReq != null && !fkEmployeeReq.isEmpty() &&
                 fkClientReq != null && !fkClientReq.isEmpty() &&
                 fkPaymentMethodReq != null && !fkPaymentMethodReq.isEmpty()) {
 
-            Order.TypeOrder typeOrder = Order.TypeOrder.valueOf(typeOrderReq);
             Order.Status status = Order.Status.valueOf(statusReq);
-            double totalPrice = Double.parseDouble(totalPriceReq);
+            double totalPrice = 0.0;
+            if (totalPriceReq != null && !totalPriceReq.isEmpty()) {
+                totalPrice = Double.parseDouble(totalPriceReq);
+            }
             int fkEstablishment = Integer.parseInt(fkEstablishmentReq);
-            int fkEmployee = Integer.parseInt(fkEmployeeReq);
             int fkClient = Integer.parseInt(fkClientReq);
             int fkPaymentMethod = Integer.parseInt(fkPaymentMethodReq);
 
-            Order order = new Order(new Date(), typeOrder, status, totalPrice, fkEstablishment,fkEmployee, fkClient, fkPaymentMethod);
+            Order order = new Order(status, totalPrice, fkEstablishment, fkClient, fkPaymentMethod);
+
             OrderDao orderDao = new OrderDao();
             int result = orderDao.add(order);
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class OrderDao implements iDao {
 
     private final String SQL_FIND = "SELECT * FROM orders WHERE 1=1 ";
-    private final String SQL_INSERT = "INSERT INTO orders (date_order, type_order, status, total_price, establishment_id2, employee_id1, client_id1, payment_method_id1) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String SQL_INSERT = "INSERT INTO orders (status, total_price, establishment_id2, client_id1, payment_method_id1) VALUES (?, ?, ?, ?, ?)";
     private iMotorSql motorSql;
 
     public OrderDao() {
@@ -21,17 +21,16 @@ public class OrderDao implements iDao {
 
         try {
             motorSql.connect();
+            if (order.getOrderDetails() != null && !order.getOrderDetails().isEmpty()) {
+                order.calculateTotalPrice();
+            }
             PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            sentencia.setDate(1, new java.sql.Date(order.getDateOrder().getTime()));
-            sentencia.setString(2, order.getTypeOrder().name());
-            sentencia.setString(3, order.getStatus().name());
-            sentencia.setDouble(4, order.getTotalPrice());
-
+            sentencia.setString(1, order.getStatus().name());
+            sentencia.setDouble(2, order.getTotalPrice());
             // Claves foráneas (pueden ser nulas)
-            setNullableInt(sentencia, 5, order.getFkEstablishment());
-            setNullableInt(sentencia, 6, order.getFkEmployee());
-            setNullableInt(sentencia, 7, order.getFkClient());
-            setNullableInt(sentencia, 8, order.getFkPaymentMethod());
+            setNullableInt(sentencia, 3, order.getFkEstablishment());
+            setNullableInt(sentencia, 4, order.getFkClient());
+            setNullableInt(sentencia, 5, order.getFkPaymentMethod());
 
             int affectedRows = sentencia.executeUpdate();
             if (affectedRows > 0) {
@@ -42,7 +41,7 @@ public class OrderDao implements iDao {
             }
 
             // Insertar detalles si se creó la orden
-            if (orderId > 0) {
+            if (orderId > 0 && order.getOrderDetails() != null) {
                 OrderDetailDao orderDetailDao = new OrderDetailDao();
                 for (OrderDetail detail : order.getOrderDetails()) {
                     detail.setFkOrderId(orderId);
@@ -93,37 +92,7 @@ public class OrderDao implements iDao {
 
     @Override
     public int update(Object bean) {
-        int result = 0;
-        Order order = (Order) bean;
-
-        String sql = "UPDATE orders SET " +
-                "date_order = ?, type_order = ?, status = ?, total_price = ?, " +
-                "establishment_id2 = ?, employee_id1 = ?, client_id1 = ?, payment_method_id1 = ? " +
-                "WHERE order_id = ?";
-
-        try {
-            motorSql.connect();
-            PreparedStatement stmt = motorSql.getConnection().prepareStatement(sql);
-            stmt.setDate(1, new java.sql.Date(order.getDateOrder().getTime()));
-            stmt.setString(2, order.getTypeOrder().name());
-            stmt.setString(3, order.getStatus().name());
-            stmt.setDouble(4, order.getTotalPrice());
-
-            setNullableInt(stmt, 5, order.getFkEstablishment());
-            setNullableInt(stmt, 6, order.getFkEmployee());
-            setNullableInt(stmt, 7, order.getFkClient());
-            setNullableInt(stmt, 8, order.getFkPaymentMethod());
-
-            stmt.setInt(9, order.getId());
-
-            result = stmt.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Error SQL en `update()`: " + ex.getMessage());
-        } finally {
-            motorSql.disconnect();
-        }
-
-        return result;
+        return 0;
     }
 
     @Override
@@ -140,9 +109,6 @@ public class OrderDao implements iDao {
                 if (order.getId() > 0) {
                     sql += " AND order_id = " + order.getId();
                 }
-                if (order.getTypeOrder() != null) {
-                    sql += " AND type_order = '" + order.getTypeOrder().name() + "'";
-                }
                 if (order.getStatus() != null) {
                     sql += " AND status = '" + order.getStatus().name() + "'";
                 }
@@ -155,12 +121,9 @@ public class OrderDao implements iDao {
             while (rs.next()) {
                 Order orderBd = new Order(
                         rs.getInt("order_id"),
-                        rs.getDate("date_order"),
-                        Order.TypeOrder.valueOf(rs.getString("type_order")),
                         Order.Status.valueOf(rs.getString("status")),
                         rs.getDouble("total_price"),
                         rs.getInt("establishment_id2"),
-                        rs.getInt("employee_id1"),
                         rs.getInt("client_id1"),
                         rs.getInt("payment_method_id1"),
                         new ArrayList<OrderDetail>()
