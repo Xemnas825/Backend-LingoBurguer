@@ -31,8 +31,6 @@ public class OrderAction implements IAction {
         OrderDao orderDao = new OrderDao();
         ArrayList<Order> orders = orderDao.findAll(null);
 
-        System.out.println("Se encontraron " + orders.size() + " órdenes");
-
         // Cargar manualmente los detalles para cada orden usando un método directo
         OrderDetailDao detailDao = new OrderDetailDao();
 
@@ -46,7 +44,6 @@ public class OrderAction implements IAction {
             ArrayList<OrderDetail> details = findDetailsByOrderId(order.getId());
 
             if (details != null && !details.isEmpty()) {
-                System.out.println("Cargados " + details.size() + " detalles para Order ID: " + order.getId());
                 order.setOrderDetails(details);
             } else {
                 System.out.println("No se encontraron detalles para Order ID: " + order.getId());
@@ -62,17 +59,13 @@ public class OrderAction implements IAction {
         OrderDetailDao detailDao = new OrderDetailDao();
 
         try {
-            // Método 1: Intentar con el método estándar findAll y un filtro
+            // MétodoS 1: Intentar con el métodoS estándar findAll y un filtro
             OrderDetail filter = new OrderDetail(0, 0, "", 0, 0);
             filter.setFkOrderId(orderId);
             details = detailDao.findAll(filter);
 
-            System.out.println("Búsqueda con filtro para Order ID " + orderId + ": " +
-                    (details != null ? details.size() : 0) + " detalles encontrados");
-
-            // Si no hay resultados, intenta con el método directo si existe
+            // Si no hay resultados, intenta con el métodoS directo si existe
             if ((details == null || details.isEmpty()) && detailDao.getClass().getMethod("findByOrderId", int.class) != null) {
-                System.out.println("Intentando método directo findByOrderId para Order ID: " + orderId);
                 details = detailDao.findByOrderId(orderId);
             }
         } catch (Exception e) {
