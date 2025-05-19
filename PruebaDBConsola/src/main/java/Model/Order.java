@@ -151,6 +151,33 @@ public class Order implements iModel {
         m_arrayOrderDetails = new ArrayList<>();
     }
 
+    public Order(Date p_dateOrder, TypeOrder p_typeOrder, Status p_status, double p_totalPrice,
+                 int p_fkEstablishment, int p_fkEmployee, int p_fkClient, int p_fkPaymentMethod,
+                 ArrayList<OrderDetail> orderDetails) {
+        setDateOrder(p_dateOrder);
+        setTypeOrder(p_typeOrder);
+        setStatus(p_status);
+        setTotalPrice(p_totalPrice);
+        setFkEstablishment(p_fkEstablishment);
+        setFkEmployee(p_fkEmployee);
+        setFkClient(p_fkClient);
+        setFkPaymentMethod(p_fkPaymentMethod);
+        setOrderDetails(orderDetails);
+    }
+
+    public Order(Date p_dateOrder, TypeOrder p_typeOrder, Status p_status, double p_totalPrice,
+                 int p_fkEstablishment, int p_fkEmployee, int p_fkClient, int p_fkPaymentMethod) {
+        setDateOrder(p_dateOrder);
+        setTypeOrder(p_typeOrder);
+        setStatus(p_status);
+        setTotalPrice(p_totalPrice);
+        setFkEstablishment(p_fkEstablishment);
+        setFkEmployee(p_fkEmployee);
+        setFkClient(p_fkClient);
+        setFkPaymentMethod(p_fkPaymentMethod);
+    }
+
+
     public Order(int p_Id, Date p_dateOrder, TypeOrder p_typeOrder, Status p_status, double p_totalPrice,
                  int p_fkEstablishment, int p_fkEmployee, int p_fkClient, int p_fkPaymentMethod,
                  ArrayList<OrderDetail> orderDetails) {
@@ -212,12 +239,21 @@ public class Order implements iModel {
         return "";
     }
 
-    public static String toArrayJSon(ArrayList<Order> order) {
+    public static String toArrayJSon(ArrayList<Order> orders) {
+        for (Order order : orders) {
+            if (order.getOrderDetails() == null) {
+                order.setOrderDetails(new ArrayList<OrderDetail>());
+            }
+
+            // Debug: imprimir la cantidad de detalles para ayudar a la depuración
+            System.out.println("Order ID: " + order.getId() + " has " +
+                    order.getOrderDetails().size() + " details to serialize");
+        }
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
 
         Gson gson = builder.create();
-        String resp = gson.toJson(order);
+        String resp = gson.toJson(orders);
 
         return resp;
     }

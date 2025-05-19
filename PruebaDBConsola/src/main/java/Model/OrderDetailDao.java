@@ -86,7 +86,7 @@ public class OrderDetailDao implements iDao {
     @Override
     public ArrayList<OrderDetail> findAll(Object bean) {
 
-        ArrayList<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
+        ArrayList<OrderDetail> orderDetails = new ArrayList<>();
         String sql= SQL_FIND;
 
         try
@@ -136,5 +136,35 @@ public class OrderDetailDao implements iDao {
         }
 
         return orderDetails;
+    }
+
+
+    public ArrayList<OrderDetail> findByOrderId(int orderId) {
+        ArrayList<OrderDetail> details = new ArrayList<>();
+        String sql = "SELECT * FROM order_details WHERE order_id1 = " + orderId;
+
+        try {
+            motorSql.connect();
+            System.out.println("SQL directo: " + sql);
+
+            ResultSet rs = motorSql.executeQuery(sql);
+            while (rs.next()) {
+                OrderDetail detailBd = new OrderDetail(
+                        rs.getInt("detail_id"),
+                        rs.getInt("quantity"),
+                        rs.getInt("unit_price"),
+                        rs.getString("notes"),
+                        rs.getInt("order_id1"),
+                        rs.getInt("product_id2")
+                );
+                details.add(detailBd);
+            }
+        } catch (SQLException sqlEx) {
+            System.out.println("Error SQL en findByOrderId(): " + sqlEx.getMessage());
+        } finally {
+            motorSql.disconnect();
+        }
+
+        return details;
     }
 }

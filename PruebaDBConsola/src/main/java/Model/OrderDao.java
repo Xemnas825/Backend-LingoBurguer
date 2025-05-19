@@ -69,7 +69,7 @@ public class OrderDao implements iDao {
 
             // Eliminar detalles primero (si aplica)
             OrderDetailDao detailDao = new OrderDetailDao();
-            OrderDetail filtro = new OrderDetail(0, 0, "");
+            OrderDetail filtro = new OrderDetail(0, 0, "", 0, 0);
             filtro.setFkOrderId(order.getId());
             ArrayList<OrderDetail> detalles = detailDao.findAll(filtro);
             for (OrderDetail detail : detalles) {
@@ -179,12 +179,31 @@ public class OrderDao implements iDao {
     }
 
     private void loadOrderDetails(Order order) {
+        if (order == null || order.getId() <= 0) {
+            System.out.println("ERROR: No se puede cargar detalles para una orden inválida");
+            return;
+        }
+
+        System.out.println("Cargando detalles para Order ID: " + order.getId());
+
         OrderDetailDao orderDetailDao = new OrderDetailDao();
-        OrderDetail filtro = new OrderDetail(0, 0, "");
+        OrderDetail filtro = new OrderDetail(0, 0, "", 0, 0);
         filtro.setFkOrderId(order.getId());
 
-        ArrayList<OrderDetail> detalles = orderDetailDao.findAll(filtro);
-        order.setOrderDetails(detalles);
+        try {
+            ArrayList<OrderDetail> detalles = orderDetailDao.findAll(filtro);
+
+            if (detalles != null) {
+                order.setOrderDetails(detalles);
+                System.out.println("✅ Cargados " + detalles.size() + " detalles para Order ID: " + order.getId());
+            } else {
+                order.setOrderDetails(new ArrayList<OrderDetail>());
+                System.out.println("⚠️ No se encontraron detalles para Order ID: " + order.getId());
+            }
+        } catch (Exception e) {
+            System.out.println("❌ Error al cargar detalles para Order ID " + order.getId() + ": " + e.getMessage());
+            order.setOrderDetails(new ArrayList<OrderDetail>());
+        }
     }
 
     private void setNullableInt(PreparedStatement stmt, int index, int value) throws SQLException {
