@@ -18,7 +18,7 @@ public class Order implements iModel {
     private int m_fkClient;
     private int m_fkPaymentMethod;
 
-    private ArrayList<OrderDetail> m_arrayOrderDetails;
+    private ArrayList<OrderDetail>  m_arrayOrderDetails;
     private Establishment m_establishment;
     private Client m_client;
     private PaymentMethod m_paymentMethod;
@@ -129,9 +129,6 @@ public class Order implements iModel {
         setOrderDetails(orderDetails);
     }
 
-
-
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -160,7 +157,7 @@ public class Order implements iModel {
         return sb.toString();
     }
 
-    public void calculateTotalPrice() {
+    /*public void calculateTotalPrice() {
         double total = 0.0;
         if (m_arrayOrderDetails != null) {
             for (OrderDetail detail : m_arrayOrderDetails) {
@@ -168,7 +165,7 @@ public class Order implements iModel {
             }
         }
         setTotalPrice(total);
-    }
+    }*/
 
 
     @Override

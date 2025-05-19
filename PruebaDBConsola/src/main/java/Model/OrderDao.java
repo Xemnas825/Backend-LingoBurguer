@@ -21,9 +21,6 @@ public class OrderDao implements iDao {
 
         try {
             motorSql.connect();
-            if (order.getOrderDetails() != null && !order.getOrderDetails().isEmpty()) {
-                order.calculateTotalPrice();
-            }
             PreparedStatement sentencia = motorSql.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             sentencia.setString(1, order.getStatus().name());
             sentencia.setDouble(2, order.getTotalPrice());

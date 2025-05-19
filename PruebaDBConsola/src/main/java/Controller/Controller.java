@@ -39,11 +39,6 @@ public class Controller extends HttpServlet {
         }
         switch (arrayAction[0].toUpperCase())
         {
-            case "ALLERGEN":
-            {
-                out.print(new AllergenAction().execute(request,response, arrayAction[1].toUpperCase()));
-                break;
-            }
             case "CANDIDATE":
             {
                 out.print(new CandidateAction().execute(request,response, arrayAction[1].toUpperCase()));
