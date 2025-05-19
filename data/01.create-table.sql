@@ -14,18 +14,6 @@ CREATE TABLE IF NOT EXISTS products (
     FOREIGN KEY (category_id1) REFERENCES categories (category_id) ON DELETE SET NULL
 );
 
-CREATE TABLE IF NOT EXISTS allergens (
-    allergen_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    description TEXT
-);
-
-CREATE TABLE IF NOT EXISTS products_allergens (
-    allergen_id1 INT,
-    product_id1 INT,
-    FOREIGN KEY (allergen_id1) REFERENCES allergens (allergen_id) ON DELETE SET NULL,
-    FOREIGN KEY (product_id1) REFERENCES products (product_id) ON DELETE SET NULL
-);
 
 CREATE TABLE IF NOT EXISTS clients (
     client_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -33,7 +21,6 @@ CREATE TABLE IF NOT EXISTS clients (
     last_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     telephone VARCHAR(20), 
-    address VARCHAR(100),
     password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -59,7 +46,6 @@ CREATE TABLE IF NOT EXISTS employees (
     last_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     telephone VARCHAR(20), 
-    address VARCHAR(100),
     password_hash VARCHAR(255) NOT NULL,
     hire_date DATE,
     salary DECIMAL(10,2),
@@ -76,12 +62,10 @@ CREATE TABLE IF NOT EXISTS payment_methods(
 
 CREATE TABLE IF NOT EXISTS orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
-    date_order DATE,
-    type_order ENUM('online', 'physical'),
-    status ENUM('local', 'online', 'take_away'),
+    date_order TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('local', 'take_away'),
     total_price DECIMAL(10,2),
     establishment_id2 INT,
-    employee_id1 INT,
     client_id1 INT,
     payment_method_id1 INT,
     FOREIGN KEY (establishment_id2) REFERENCES establishments (establishment_id) ON DELETE SET NULL,
@@ -99,17 +83,6 @@ CREATE TABLE IF NOT EXISTS order_details (
     product_id2 INT,
     FOREIGN KEY (order_id1) REFERENCES orders (order_id) ON DELETE SET NULL,
     FOREIGN KEY (product_id2) REFERENCES products (product_id) ON DELETE SET NULL
-);
-
-CREATE TABLE IF NOT EXISTS ratings (
-    rating_id INT AUTO_INCREMENT PRIMARY KEY,
-    score INT CHECK(score BETWEEN 1 AND 5),
-    comment TEXT,
-    date_rating DATE,
-    order_id2 INT,
-    client_id2 INT,
-    FOREIGN KEY (order_id2) REFERENCES orders (order_id) ON DELETE SET NULL,
-    FOREIGN KEY (client_id2) REFERENCES clients (client_id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS job_offers (
@@ -137,7 +110,6 @@ CREATE TABLE IF NOT EXISTS candidates (
     cv_url VARCHAR(255),
     letter_presentation TEXT,
     application_date DATE,
-    status ENUM('received', 'en_revision', 'interview', 'rejected', 'accepted') NOT NULL DEFAULT 'received',
     notes TEXT,
     availability VARCHAR(255),
     job_offer_id1 INT,
